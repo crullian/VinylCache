@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VinylCache</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/lib/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController.js"></script>
+    <script src="js/controllers/SubmitCtrl.js"></script>
+    <script src="js/factories/RecordsFactory.js"></script>
+    <script src="js/directives/loader/loader.js"></script>
+    <script src="js/directives/record/record.js"></script>
+  </head>
+
+  <body>
+
+    <div ng-app="Records">
+      <form name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+        <pre style="text-align: left;">{{ record | json }}</pre>
+        Artist: <input required ng-model="record.artist"/><br />
+        Title: <input required ng-model="record.title"/><br />
+        Image URL: <input required ng-model="record.imgUrl"/><br />
+        <button type="submit">Add Some Vinyl</button>
+      </form>
+      
+      <div ng-controller="MainController">
+        <loader ng-show="!showRecords"></loader>
+
+        <div ng-show="showRecords">
+          <record vinyl="record" ng-repeat="record in records | orderBy:'artist'" class="record"></record>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

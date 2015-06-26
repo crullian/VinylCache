@@ -39,3 +39,13 @@ app.post('/records', function(req, res) {
     res.status(200).end();
   });
 });
+
+app.delete('/records/', function(req, res) {
+  console.log('DATA: ', data);
+  RecordModel.remove({
+    title: data.title
+  }, function(err) {
+    console.log('Yay, deleted');
+    res.redirect('/')
+  })
+})

@@ -6,15 +6,14 @@ app.directive('record', function() { // injectable function!
       vinyl: "="
     },
     link: function(scope, element, attrs) {
-      scope.clickEdit = function() {
-
-        if (scope.isEditing) {
-          scope.isEditing = false;
-        } else {
-          scope.isEditing = true;
-        }
-
+      scope.toggleEdit = function() {
+        scope.isEditing = scope.isEditing === true ? false : true;
       };
+      scope.remove = function(record) {
+        RecordsFactory.deleteRecord(record).then(function() {
+          scope.record = {};
+        })
+      }
     }
   };
 })

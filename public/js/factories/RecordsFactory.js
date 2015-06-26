@@ -18,6 +18,10 @@ app.factory('RecordsFactory', function($http) {
 
     updateRecord: function(data) {
       return $http.put('/records', data);
+    },
+
+    deleteRecord: function(data) {
+      return $http.get('/records', data);
     }
   };
 });

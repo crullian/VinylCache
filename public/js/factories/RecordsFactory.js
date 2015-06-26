@@ -11,8 +11,13 @@ app.factory('RecordsFactory', function($http) {
         return response.data;
       });
     },
+
     postNewRecord: function(data) {
       return $http.post('/records', data);
+    },
+
+    updateRecord: function(data) {
+      return $http.put('/records', data);
     }
   };
 });

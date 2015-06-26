@@ -1,8 +1,17 @@
 <div>
-  <img width="300" height="300" ng-src="{{ vinyl.imgUrl }}"/>
+  <img class="album" width="300" height="300" ng-src="{{ vinyl.imgUrl }}"/>
   <div class="info">
     <h1>{{ vinyl.artist }}</h1>
     <h3>{{ vinyl.title }}</h3>
+    <button class="btn btn-default edit" ng-click="clickEdit()">Edit</button>
+    <form ng-show="isEditing" name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+      <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
+      <input required ng-model="record.artist" placeholder="artist"/><br />
+      <input required ng-model="record.title" placeholder="title"/><br />
+      <input required ng-model="record.imgUrl" placeholder="image url"/><br />
+      <button class="btn btn-info add" type="submit">Submit edits</button>
+      <button class="btn btn-danger del" type"delete" ng-click="remove()">Remove</button>
+    </form> 
   </div>
 </div>
 

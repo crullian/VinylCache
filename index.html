@@ -19,12 +19,12 @@
     <div class="row" ng-app="Records">
 
       <div class="col-md-4 ">
-        <form name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+        <form class="addForm" name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
           <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
           <input required ng-model="record.artist" placeholder="artist"/><br />
           <input required ng-model="record.title" placeholder="title"/><br />
           <input required ng-model="record.imgUrl" placeholder="image url"/><br />
-          <button class="btn btn-info" type="submit">Add Some Vinyl</button>
+          <button class="btn btn-info add" type="submit">Add Some Vinyl</button>
         </form> 
       </div> 
 

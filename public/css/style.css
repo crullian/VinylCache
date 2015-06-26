@@ -18,18 +18,20 @@ html, body {
   top: -20px;  
 }
 
+.album {
+  width: 300px;
+}
+
 input {
   width: 80%;
 }
- form {
-  margin: 30px;
- }
 
-.btn {
-  width: 155px;
-  margin: 2px 0px;
+.addForm {
+  margin: 30px;
 }
 
 
-
-
+.add {
+  width: 155px;
+  margin: 2px 0px;
+}

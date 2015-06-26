@@ -38,5 +38,4 @@ app.post('/records', function(req, res) {
   RecordModel.create(recordData).then(function() {
     res.status(200).end();
   });
-
 });

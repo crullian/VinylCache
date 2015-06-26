@@ -4,5 +4,4 @@ app.controller('MainController', function($scope, RecordsFactory) {
     $scope.records = data;
     $scope.showRecords = true;
   });
-
 });

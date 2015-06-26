@@ -1,42 +1,34 @@
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 5px;
+}
 
 html, body {
   font-family: "Lucida Grande";
-  /*text-align: center; }*/
+  padding: 10px;
 }
 
 .record {
-
   width: 60%;
-  /*height: 400px;
-  margin: 0 auto;
-  margin-top: 40px;
-  border: 1px solid gray;
-  padding: 50px;
-  box-shadow: 3px 4px 5px 1px #8B668A; */
 }
+
 .info {
   display: inline-block;
   position: relative;
-  top: -202px;  
-}
-.record .info h1 {
-
-  /*font-size: 40px;*/
-  /*text-align: center;*/
-  /*margin-bottom: 40px; */
+  top: -20px;  
 }
 
-.record .info h3 {
-/*  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 12px;
-  color: #bababa; */
+input {
+  width: 80%;
 }
+ form {
+  margin: 30px;
+ }
 
-  
+.btn {
+  width: 155px;
+  margin: 2px 0px;
+}
 
 
 

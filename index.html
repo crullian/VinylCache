@@ -3,6 +3,7 @@
   <head>
     <title>VinylCache</title>
     <!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/lib/angular.js"></script>
     <script src="js/app.js"></script>
@@ -15,23 +16,28 @@
 
   <body>
 
-    <div ng-app="Records">
-      <form name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
-        <pre style="text-align: left;">{{ record | json }}</pre>
-        Artist: <input required ng-model="record.artist"/><br />
-        Title: <input required ng-model="record.title"/><br />
-        Image URL: <input required ng-model="record.imgUrl"/><br />
-        <button type="submit">Add Some Vinyl</button>
-      </form>
-      
-      <div ng-controller="MainController">
-        <loader ng-show="!showRecords"></loader>
+    <div class="row" ng-app="Records">
 
+      <div class="col-md-4 ">
+        <form name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+          <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
+          <input required ng-model="record.artist" placeholder="artist"/><br />
+          <input required ng-model="record.title" placeholder="title"/><br />
+          <input required ng-model="record.imgUrl" placeholder="image url"/><br />
+          <button class="btn btn-info" type="submit">Add Some Vinyl</button>
+        </form> 
+      </div> 
+
+      <div class="col-md-8" ng-controller="MainController">
+        <loader ng-show="!showRecords"></loader>
         <div ng-show="showRecords">
           <record vinyl="record" ng-repeat="record in records | orderBy:'artist'" class="record"></record>
         </div>
       </div>
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

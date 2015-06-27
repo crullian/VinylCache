@@ -1,4 +1,4 @@
-app.directive('record', function() { // injectable function!
+app.directive('record', function(RecordsFactory) { // injectable function!
   return { // always returns directive definition object
     restrict: 'E', // Element, must be capital
     templateUrl: 'js/directives/record/record.html', // must put script path in head of html
@@ -9,11 +9,18 @@ app.directive('record', function() { // injectable function!
       scope.toggleEdit = function() {
         scope.isEditing = scope.isEditing === true ? false : true;
       };
-      scope.remove = function(record) {
-        RecordsFactory.deleteRecord(record).then(function() {
+      scope.updateRecord = function(record) {
+        RecordsFactory.updateRecord(record).then(function() {
           scope.record = {};
         })
       }
+      scope.remove = function(record) {
+        console.log('ARE WE REMOVING?');
+        RecordsFactory.deleteRecord(record).then(function() {
+          console.log("RETURNING FROM RECORDSFACTORY");
+          scope.isEditing = false;
+        })
+      };
     }
   };
 })

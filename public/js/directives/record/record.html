@@ -5,11 +5,11 @@
     <h3>{{ vinyl.title }}</h3>
     <button class="btn btn-default edit" ng-click="toggleEdit()">Edit</button>
     <div id="editForm">
-      <form name="submitForm" ng-show="isEditing" ng-controller="SubmitCtrl">
-        <input required ng-model="record.artist" placeholder="{{vinyl.artist}}"/><br />
-        <input required ng-model="record.title" placeholder="{{vinyl.title}}"/><br />
-        <input required ng-model="record.imgUrl" placeholder="{{vinyl.imgUrl}}"/><br />
-        <button class="btn btn-info add" ng-click="submitRecord(record)">Submit edits</button>
+      <form name="submitForm" ng-show="isEditing">
+        <input required ng-model="vinyl.artist"/><br />
+        <input required ng-model="vinyl.title"/><br />
+        <input required ng-model="vinyl.imgUrl"/><br />
+        <button class="btn btn-info add" ng-click="updateRecord(record)">Submit edits</button>
         <button class="btn btn-danger del" ng-click="remove(record)">Remove</button>
       </form>
     </div> 

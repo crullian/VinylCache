@@ -1,5 +1,6 @@
 var path = require('path');
 var express = require('express');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -11,6 +12,7 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 var RecordModel = require('./models/record-model');
 
 app.use(express.static(publicPath));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -22,9 +24,9 @@ app.get('/', function(req, res) {
 
 app.get('/records', function(req, res) {
   var modelParams = {};
-  // if (req.query.artist) {
-  //     modelParams.artist = req.query.artist;
-  // }
+  if (req.query.artist) {
+    modelParams.artist = req.query.artist;
+  }
   RecordModel.find(modelParams, function(err, records) {
     setTimeout(function() {
       res.send(records);
@@ -40,12 +42,24 @@ app.post('/records', function(req, res) {
   });
 });
 
-app.delete('/records/', function(req, res) {
-  console.log('DATA: ', data);
-  RecordModel.remove({
-    title: data.title
+app.put('/records', function(req, res) {
+  var recordData = req.body;
+  RecordModel.findByIdAndUpdate(recordData.id, {
+    artist: recordData.artist,
+    title: recordData.title,
+    imgUrl: recordData.imgUrl
+  }).then(function() {
+    res.status(200).end();
+  })
+})
+
+app.delete('/records', function(req, res) {
+  console.log('REQ.BODY: ', req.body);
+  console.log('REQ.QUERY: ', req.query);
+  console.log('REQ.PARAMS: ', req.params);
+  RecordModel.findOneAndRemove({
+    _id: req.body.id
   }, function(err) {
-    console.log('Yay, deleted');
-    res.redirect('/')
+    console.log('Yay, error');
   })
 })

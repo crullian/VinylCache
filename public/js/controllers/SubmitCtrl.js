@@ -6,9 +6,4 @@ app.controller('SubmitCtrl', function($scope, RecordsFactory) {
       $scope.record = {};
     });
   }
-  $scope.remove = function(record) {
-    RecordsFactory.deleteRecord(record).then(function() {
-      $scope.record = {};
-    })
-  }
 });

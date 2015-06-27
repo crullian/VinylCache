@@ -37,7 +37,9 @@ input {
 }
 
 .addForm {
+  position: fixed;
   margin: 30px;
+  width: 400px;
 }
 
 

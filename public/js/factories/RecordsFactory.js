@@ -36,7 +36,7 @@ app.factory('RecordsFactory', function($http) {
       if (id) {
         recordParams.id = id
       }
-      return $http.delete('/records', {
+      return $http.delete('/records/:id', {
           params: recordParams
         })
         .success(function(record) {

@@ -24,11 +24,12 @@ app.factory('RecordsFactory', function($http) {
     },
 
     updateRecord: function(record) {
-      console.log('IN RECORDSFACTORY UPDATERECORD');
+      console.log('IN UPDATERECORD');
       var id = record._id;
       return $http.put('/records/' + id, record)
         .success(function(record) {
           console.log('UPDATED');
+          return record.data;
         })
         .error(function(err) {
           console.log('ERROR');
@@ -36,14 +37,14 @@ app.factory('RecordsFactory', function($http) {
     },
 
     deleteRecord: function(record) {
-      console.log('IN RECORDSFACTORY');
       console.log('RECORD ID: ', record._id)
       var id = record._id;
       return $http.delete('/records/' + id)
         .success(function(record) {
-          console.log("THIS RAN");
+          // console.log("THIS RAN");
+          return record.data;
         }).error(function(err) {
-          console.log("YA FUCKED UP SON");
+          // console.log("YA FUCKED UP SON");
         });
     }
   };

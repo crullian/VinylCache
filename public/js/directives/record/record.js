@@ -1,29 +1,34 @@
-app.directive('record', function() { // injectable function!
+app.directive('record', function(RecordsFactory) { // injectable function!
   return { // always returns directive definition object
     restrict: 'E', // Element, must be capital
     templateUrl: 'js/directives/record/record.html', // must put script path in head of html
     scope: {
       vinyl: "="
+    },
+    link: function(scope, element, attrs) {
+      scope.toggleEdit = function() {
+        scope.isEditing = scope.isEditing === true ? false : true;
+      };
+      scope.updateRecord = function(record) {
+        RecordsFactory.updateRecord(record)
+          .success(function() {
+            console.log("RETURNING FROM RECORDSFACTORY");
+            scope.isEditing = false;
+          })
+          .error(function(err) {
+            console.log("NO DICE");
+          });
+      };
+      scope.remove = function(record) {
+        console.log('ARE WE REMOVING?');
+        RecordsFactory.deleteRecord(record)
+          .success(function() {
+            scope.isEditing = false;
+          })
+          .error(function(error) {
+            console.log("ERROR");
+          });
+      };
     }
-    // link: function(scope, element, attrs) {
-    //   scope.answered = false;
-    //   scope.answeredCorrectly = null;
-
-    //   scope.answerQuestion = function(answer) {
-
-    //     if (scope.answered) {
-    //       return;
-    //     }
-
-    //     scope.answered = true;
-    //     scope.answeredCorrectly = answer.correct;
-    //     if (scope.answeredCorrectly) {
-    //       ScoreFactory.correct++;
-    //     } else {
-    //       ScoreFactory.incorrect++;
-    //     }
-
-    //   };
-    // }
   };
-})
+});

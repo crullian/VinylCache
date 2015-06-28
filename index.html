@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>VinylCache</title>
-    <!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/lib/angular.js"></script>
@@ -19,19 +18,19 @@
     <div class="row" ng-app="Records">
 
       <div class="col-md-4 ">
-        <form name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+        <form class="addForm" name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
           <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
           <input required ng-model="record.artist" placeholder="artist"/><br />
           <input required ng-model="record.title" placeholder="title"/><br />
           <input required ng-model="record.imgUrl" placeholder="image url"/><br />
-          <button class="btn btn-info" type="submit">Add Some Vinyl</button>
+          <button class="btn btn-info add" type="submit">Add Some Vinyl</button>
         </form> 
       </div> 
 
       <div class="col-md-8" ng-controller="MainController">
         <loader ng-show="!showRecords"></loader>
         <div ng-show="showRecords">
-          <record vinyl="record" ng-repeat="record in records | orderBy:'artist'" class="record"></record>
+          <record vinyl="record" ng-repeat="record in records" class="record"></record>
         </div>
       </div>
 

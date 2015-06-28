@@ -1,5 +1,6 @@
 var path = require('path');
 var express = require('express');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -11,6 +12,7 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 var RecordModel = require('./models/record-model');
 
 app.use(express.static(publicPath));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -22,9 +24,9 @@ app.get('/', function(req, res) {
 
 app.get('/records', function(req, res) {
   var modelParams = {};
-  // if (req.query.artist) {
-  //     modelParams.artist = req.query.artist;
-  // }
+  if (req.query.artist) {
+    modelParams.artist = req.query.artist;
+  }
   RecordModel.find(modelParams, function(err, records) {
     setTimeout(function() {
       res.send(records);
@@ -38,5 +40,33 @@ app.post('/records', function(req, res) {
   RecordModel.create(recordData).then(function() {
     res.status(200).end();
   });
-
 });
+
+app.put('/records/:id', function(req, res) {
+  RecordModel.findById(req.params.id, function(err, record) {
+    console.log("REQ.PARAMS: ", req.params);
+    console.log("REQ.BODY: ", req.body);
+    record.update(req.body, function() {
+      record.save(function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Hoooray, Updated!')
+          res.status(200).end();
+        }
+      })
+    })
+  })
+})
+
+app.delete('/records/:id', function(req, res) {
+  RecordModel.findById(req.params.id, function(err, record) {
+    record.remove(function(err) {
+      if (!err) {
+        res.status(204).end();
+      } else {
+        console.log(err);
+      }
+    })
+  })
+})

@@ -30,7 +30,7 @@
       <div class="col-md-8" ng-controller="MainController">
         <loader ng-show="!showRecords"></loader>
         <div ng-show="showRecords">
-          <record vinyl="record" ng-repeat="record in records" class="record"></record>
+          <record vinyl="record" ng-repeat="record in records | orderBy:'artist'" class="record"></record>
         </div>
       </div>
 

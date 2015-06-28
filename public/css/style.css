@@ -60,3 +60,9 @@ input {
 #editForm .add {
   width: 130px;
 }
+
+@media screen and (max-width: 990px) {
+  .addForm {
+    position: relative;
+  }
+}

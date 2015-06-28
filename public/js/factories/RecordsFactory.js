@@ -1,19 +1,19 @@
 app.factory('RecordsFactory', function($http) {
   return {
     getRecords: function(artist) {
-      // var queryParams = {};
-      // if (artist) {
-      //   queryParams.artist = artist;
-      // }
-      // return $http.get('/records', {
-      //   params: queryParams
-      // }).then(function(record) {
-      //   return record.data;
-      // });
-      return $http.get('/records')
-        .then(function(record) {
-          return record.data;
-        });
+      var queryParams = {};
+      if (artist) {
+        queryParams.artist = artist;
+      }
+      return $http.get('/records', {
+        params: queryParams
+      }).then(function(record) {
+        return record.data;
+      });
+      // return $http.get('/records')
+      //   .then(function(record) {
+      //     return record.data;
+      //   });
     },
 
     postNewRecord: function(data) {

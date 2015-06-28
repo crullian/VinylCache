@@ -23,25 +23,25 @@ app.factory('RecordsFactory', function($http) {
         });
     },
 
-    updateRecord: function(data) {
-      return $http.put('/records', data)
-        .then(function(record) {
-          return record.data;
+    updateRecord: function(record) {
+      console.log('IN RECORDSFACTORY UPDATERECORD');
+      var id = record._id;
+      return $http.put('/records/' + id, record)
+        .success(function(record) {
+          console.log('UPDATED');
+        })
+        .error(function(err) {
+          console.log('ERROR');
         });
     },
 
-    deleteRecord: function(id) {
+    deleteRecord: function(record) {
       console.log('IN RECORDSFACTORY');
-      var recordParams = {};
-      if (id) {
-        recordParams.id = id
-      }
-      return $http.delete('/records/:id', {
-          params: recordParams
-        })
+      console.log('RECORD ID: ', record._id)
+      var id = record._id;
+      return $http.delete('/records/' + id)
         .success(function(record) {
           console.log("THIS RAN");
-          return record.data;
         }).error(function(err) {
           console.log("YA FUCKED UP SON");
         });

@@ -8,6 +8,10 @@ html, body {
   padding: 10px;
 }
 
+.navbar-default {
+  background-color: rgba(248, 248, 248, 0.96);
+}
+
 h1 {
   margin-top: 10px;
   margin-bottom: 0px;
@@ -15,6 +19,10 @@ h1 {
 
 h3 {
   margin-top: 0px;
+}
+
+.row {
+  padding-top: 50px;
 }
 
 .record {
@@ -42,7 +50,6 @@ input {
   width: 400px;
 }
 
-
 .add {
   width: 155px;
   margin: 2px 0px;
@@ -62,7 +69,33 @@ input {
 }
 
 @media screen and (max-width: 990px) {
+  
+  .navbar-default {
+    background-color: rgba(68, 66, 66, 0.98);
+  }
+
+  .navbar-default .navbar-brand {
+    color: #cacaca;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .info {
+    width: 248px;
+  }
+
   .addForm {
+    width: 90%;
     position: relative;
+  }
+  .album {
+    width: 250px;
+    height: 250px;
   }
 }

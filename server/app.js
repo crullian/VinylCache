@@ -37,8 +37,13 @@ app.get('/records', function(req, res) {
 app.post('/records', function(req, res) {
   // Reference schema for what is expected as the POST body.
   var recordData = req.body;
-  RecordModel.create(recordData).then(function() {
-    res.status(200).end();
+  RecordModel.create(recordData, function(err, record) {
+    // res.status(200).end();
+    if (!err) {
+      RecordModel.find({}, function(err, records) {
+        res.send(records);
+      })
+    }
   });
 });
 
@@ -63,7 +68,10 @@ app.delete('/records/:id', function(req, res) {
   RecordModel.findById(req.params.id, function(err, record) {
     record.remove(function(err) {
       if (!err) {
-        res.status(204).end();
+        RecordModel.find({}, function(err, records) {
+          res.send(records);
+        });
+        // res.status(204).end();
       } else {
         console.log(err);
       }

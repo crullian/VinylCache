@@ -25,6 +25,10 @@ h3 {
   padding-top: 50px;
 }
 
+loader {
+  margin-left: 90px;
+}
+
 .record {
   width: 60%;
 }

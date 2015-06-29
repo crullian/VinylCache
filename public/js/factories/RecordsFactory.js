@@ -10,10 +10,6 @@ app.factory('RecordsFactory', function($http) {
       }).then(function(record) {
         return record.data;
       });
-      // return $http.get('/records')
-      //   .then(function(record) {
-      //     return record.data;
-      //   });
     },
 
     postNewRecord: function(data) {

@@ -25,11 +25,11 @@
     <div class="row">
 
       <div class="col-md-4 ">
-        <form class="addForm" name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+        <form class="addForm" name="submitForm" ng-submit="submitForm.$valid && submitRecord(newRecord)" ng-controller="SubmitCtrl">
           <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
-          <input required ng-model="record.artist" placeholder="artist"/><br />
-          <input required ng-model="record.title" placeholder="title"/><br />
-          <input required ng-model="record.imgUrl" placeholder="image url"/><br />
+          <input required ng-model="newRecord.artist" placeholder="artist"/><br />
+          <input required ng-model="newRecord.title" placeholder="title"/><br />
+          <input required ng-model="newRecord.imgUrl" placeholder="image url"/><br />
           <button class="btn btn-info add" type="submit">Add Some Vinyl</button>
         </form> 
       </div> 

@@ -6,9 +6,10 @@
     <button class="btn btn-default edit" ng-click="toggleEdit()">Edit</button>
     <div id="editForm">
       <form name="submitForm" ng-show="isEditing">
-        <input required ng-model="record.artist"/><br />
-        <input required ng-model="record.title"/><br />
-        <input required ng-model="record.imgUrl"/><br />
+
+        <input valid ng-model="record.artist"/><br />
+        <input valid ng-model="record.title"/><br />
+        <input valid ng-model="record.imgUrl"/><br /> 
         <button class="btn btn-info add" ng-click="updateRecord(record)">Submit edits</button>
         <button class="btn btn-danger del" ng-click="remove(record)">Remove</button>
       </form>

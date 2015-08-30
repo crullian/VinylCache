@@ -30,7 +30,7 @@ app.get('/records', function(req, res) {
   RecordModel.find(modelParams, function(err, records) {
     setTimeout(function() {
       res.send(records);
-    }, Math.random() * 1000);
+    }, Math.random() * 3000);
   });
 });
 

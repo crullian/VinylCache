@@ -72,6 +72,7 @@ input {
 @media screen and (max-width: 990px) {
   
   .navbar-default {
+    height: 106px;
     background-color: rgba(68, 66, 66, 0.98);
   }
 

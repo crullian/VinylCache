@@ -19,6 +19,15 @@
     <nav class="nav navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">VinylCache</a>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="Search" 
+                   ng-model="query" 
+                   autofocus>
+          </div>
+        </form>
       </div>
     </nav>
 
@@ -37,7 +46,7 @@
       <div class="col-md-8">
         <loader ng-show="!showRecords"></loader>
         <div ng-show="showRecords">
-          <record vinyl="record" ng-repeat="record in records | orderBy:'artist'" class="record"></record>
+          <record vinyl="record" ng-repeat="record in records | filter:query | orderBy:'artist'" class="record"></record>
         </div>
       </div>
 

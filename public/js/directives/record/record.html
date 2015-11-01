@@ -3,7 +3,8 @@
   <div class="info">
     <h1>{{ record.artist }}</h1>
     <h3>{{ record.title }}</h3>
-    <button class="btn btn-default edit" ng-click="toggleEdit()">Edit</button>
+    <!-- <button class="btn btn-default edit" disabled ng-click="toggleEdit()">Edit</button> -->
+    <div class="edit"></div>
     <div id="editForm">
       <form name="submitForm" ng-show="isEditing">
         <input required ng-model="record.artist"/><br />

@@ -27,6 +27,9 @@ app.get('/records', function(req, res) {
   if (req.query.artist) {
     modelParams.artist = req.query.artist;
   }
+  if (req.query.title) {
+    modelParams.title = req.query.title;
+  }
   RecordModel.find(modelParams, function(err, records) {
     setTimeout(function() {
       res.send(records);

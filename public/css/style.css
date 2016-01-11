@@ -5,7 +5,7 @@
 
 html, body {
   font-family: "Lucida Grande";
-  padding: 10px;
+  padding: 15px 0;
   background-color: #EFEFEF;
 }
 
@@ -14,7 +14,7 @@ html, body {
 }
 
 h1 {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 0px;
 }
 
@@ -22,18 +22,25 @@ h3 {
   margin-top: 0px;
 }
 
-.row {
-  padding-top: 50px;
+.loader {
+  margin-left: 12%;
+}
+
+.list {
+  padding-top: 30px;
 }
 
 .record {
-  width: 60%;
+  padding-bottom: 5px;
+  width: 93%;
+  height: 334px;
 }
 
 .info {
+  width: 50%;
   display: inline-block;
   position: relative;
-  top: -20px;  
+  margin-left: 10px;
 }
 
 .album {
@@ -42,6 +49,7 @@ h3 {
 }
 
 input {
+  padding: 5px;
   width: 80%;
 }
 
@@ -52,6 +60,7 @@ input {
 }
 
 .add {
+  padding: 5px;
   width: 155px;
   margin: 2px 0px;
 }
@@ -80,6 +89,11 @@ input {
     color: #cacaca;
   }
 
+  .navbar-form {
+    border: none;
+    box-shadow: none;
+  }
+
   h1 {
     font-size: 25px;
   }
@@ -93,11 +107,25 @@ input {
   }
 
   .addForm {
+    padding-top: 65px;
     width: 90%;
     position: relative;
   }
+
+  .record {
+    margin: auto 30px;
+  }
+
   .album {
     width: 250px;
     height: 250px;
   }
+}
+@media screen and (max-width: 450px) {
+  .record {
+    height: initial;
+  }
+  .loader {
+    margin-left: 35%;
+}
 }

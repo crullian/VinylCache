@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var app = express();
 module.exports = app;
 
-var publicPath = path.join(__dirname, '../public');
-var indexHtmlPath = path.join(__dirname, '../dist/index.html');
+var publicPath = path.join(__dirname, '../dist');
+// var indexHtmlPath = path.join(__dirname, '../dist/index.html');
 
 var RecordModel = require('./models/record-model');
 
@@ -19,7 +19,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  res.sendFile(indexHtmlPath);
+  res.sendFile('index.html', {
+    root: publicPath
+  });
 });
 
 app.get('/records', function(req, res) {

@@ -7,7 +7,7 @@ var app = express();
 module.exports = app;
 
 var publicPath = path.join(__dirname, '../public');
-var indexHtmlPath = path.join(__dirname, '../index.html');
+var indexHtmlPath = path.join(__dirname, '../dist/index.html');
 
 var RecordModel = require('./models/record-model');
 

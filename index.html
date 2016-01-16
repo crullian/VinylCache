@@ -1,14 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>VinylCache</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="css/style.css" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/lib/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController.js"></script>
+    <script src="js/controllers/SubmitCtrl.js"></script>
+    <script src="js/factories/RecordsFactory.js"></script>
+    <script src="js/directives/loader/loader.js"></script>
+    <script src="js/directives/record/record.js"></script>
   </head>
-  <body> 
-    <div id="content"></div>
-    <script src="/dist/app.js"></script>
+
+  <body ng-app="Records" ng-controller="MainController">
+
+    <nav class="nav navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">VinylCache</a>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="Search" 
+                   ng-model="query" 
+                   autofocus>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+    <div class="row">
+
+      <div class="col-md-4 ">
+        <form class="addForm" name="submitForm" ng-submit="submitForm.$valid && submitRecord(record)" ng-controller="SubmitCtrl">
+          <!-- <pre style="text-align: left;">{{ record | json }}</pre> -->
+          <input required ng-model="record.artist" placeholder="artist"/><br />
+          <input required ng-model="record.title" placeholder="title"/><br />
+          <input required ng-model="record.imgUrl" placeholder="image url"/><br />
+          <button class="btn btn-info add" type="submit">Add Some Vinyl</button>
+        </form> 
+      </div> 
+
+      <div class="col-md-8">
+        <loader ng-show="!showRecords"></loader>
+        <div ng-show="showRecords">
+          <record vinyl="record" ng-repeat="record in records | filter:query | orderBy:'artist'" class="record"></record>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

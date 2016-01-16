@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var app = express();
 module.exports = app;
 
-var publicPath = path.join(__dirname, '../dist');
-// var indexHtmlPath = path.join(__dirname, '../dist/index.html');
+var publicPath = path.join(__dirname, '../public');
+var indexHtmlPath = path.join(__dirname, '../index.html');
 
 var RecordModel = require('./models/record-model');
 
@@ -19,9 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  res.sendFile('index.html', {
-    root: publicPath
-  });
+  res.sendFile(indexHtmlPath);
 });
 
 app.get('/records', function(req, res) {
@@ -54,7 +52,6 @@ app.post('/records', function(req, res) {
 
 app.put('/records/:id', function(req, res) {
   RecordModel.findById(req.params.id, function(err, record) {
-    console.log('RECORD', record);
     console.log("REQ.PARAMS: ", req.params);
     console.log("REQ.BODY: ", req.body);
     record.update(req.body, function() {
@@ -63,10 +60,7 @@ app.put('/records/:id', function(req, res) {
           console.log(err);
         } else {
           console.log('Hoooray, Updated!')
-          // res.status(200).end();
-          RecordModel.find({}, function(err, records) {
-            res.send(records);
-          })
+          res.status(200).end();
         }
       })
     })

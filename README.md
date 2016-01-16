@@ -1,2 +1,2 @@
 # VinylCache
-_Keep track of your records for the love of God_
+_Keep track of your records!_

@@ -2,15 +2,14 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  context: __dirname + "/public",
   entry: [
-    './js/index.js'
+    './public/js/index.js'
   ],
 
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname, "/public/dist"),
     filename: "app.js",
-    publicPath: '/dist/'
+    publicPath: '/public/dist/'
   },
 
   plugins: [

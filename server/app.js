@@ -60,7 +60,10 @@ app.put('/records/:id', function(req, res) {
           console.log(err);
         } else {
           console.log('Hoooray, Updated!')
-          res.status(200).end();
+          // res.status(200).end();
+          RecordModel.find({}, function(err, records) {
+            res.send(records);
+          })
         }
       })
     })

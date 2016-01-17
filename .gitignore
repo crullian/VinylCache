@@ -1,4 +1,4 @@
 node_modules
-.sass-cache
-.idea
-dist
+public/dist
+.DS_Store
+seed.js

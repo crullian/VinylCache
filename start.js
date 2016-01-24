@@ -27,7 +27,11 @@ if (isDev) {
      hot: true,
      stats: {colors: true},
      historyApiFallback: true,
-     inline: true
+     inline: true,
+     proxy: {
+      '*': 'http://localhost:1335'
+     }
+
   }).listen(8080, 'localhost', function (err, result) {
      if (err) {
        console.log(err);

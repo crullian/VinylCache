@@ -10,7 +10,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="nav navbar-default navbar-fixed-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">VinylCache</a>
+          <a className="navbar-brand" href="/">VinylCraps</a>
           <SearchBar onUserInput={this.handleUserInput.bind(this)} />
         </div>
       </nav>

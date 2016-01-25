@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "/public/dist"),
     filename: "app.js",
-    publicPath: '/public/dist/'
+    publicPath: 'http://localhost:8080/public/dist/'
   },
 
   plugins: [
@@ -31,6 +31,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ["react-hot-loader", "babel-loader?presets[]=es2015&presets[]=stage-0&presets[]=react"],
+        include: path.join(__dirname, 'public')
       }
       // ,
       // {

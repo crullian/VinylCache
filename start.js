@@ -1,5 +1,4 @@
 var path = require('path');
-
 var webpack = require('webpack');
 var isDev = (process.env.NODE_ENV !== 'production');
 
@@ -35,7 +34,6 @@ if (isDev) {
      if (err) {
        console.log(err);
      }
-
      console.log('WEBPACK Listening at localhost:8080');
   });
 }

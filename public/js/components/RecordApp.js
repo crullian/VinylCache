@@ -23,17 +23,25 @@ export default class RecordApp extends React.Component {
     return 0;
   }
   loadCommentsFromServer() {
+    // fetch, only works in chrome:(
+
+    // fetch('/records').then((response) => {
+    //   return response.json().then((data) => {
+    //     return this.setState({records: data});
+    //   })
+    // });
+
     $.ajax({
       url: '/records',
       dataType: 'json',
       cache: false,
-      success: function(records) {
+      success: (records) => {
         records = records.sort(this.compare);
         this.setState({records: records});
-      }.bind(this),
-      error: function() {
+      },
+      error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }
     });
   }
   handleCommentSubmit(record) {

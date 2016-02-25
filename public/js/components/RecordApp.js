@@ -14,35 +14,48 @@ export default class RecordApp extends React.Component {
     this.loadCommentsFromServer(); 
   }
   compare(a,b) {
-    let a_artist = a.artist.replace('The ', '');
-    let b_artist = b.artist.replace('The ', '');
-    if (a_artist < b_artist)
-      return -1;
-    if (a_artist > b_artist)
-      return 1;
-    return 0;
+    if (a.artist && b.artist) {
+      let a_artist = a.artist.replace('The ', '');
+      let b_artist = b.artist.replace('The ', '');
+      if (a_artist < b_artist)
+        return -1;
+      if (a_artist > b_artist)
+        return 1;
+      return 0;
+    } else {
+      return false;
+    }
   }
   loadCommentsFromServer() {
     // fetch, only works in chrome:(
-
-    // fetch('/records').then((response) => {
-    //   return response.json().then((data) => {
-    //     return this.setState({records: data});
-    //   })
-    // });
-
-    $.ajax({
-      url: '/records',
-      dataType: 'json',
-      cache: false,
-      success: (records) => {
-        records = records.sort(this.compare);
-        this.setState({records: records});
-      },
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString());
-      }
-    });
+    if(self.fetch) {
+      fetch('/records').then(response => {
+        if (response.ok) {
+          return response.json().then(data => {
+            data.sort(this.compare);
+            return this.setState({records: data});
+          })
+        } else {
+          console.log(`Network response was not ok: ${response}`);
+        }
+      })
+      .catch( error => {
+        console.error(`There was a problem with your fetch operation: ${error.message}`);
+      });
+    } else {
+      $.ajax({
+        url: '/records',
+        dataType: 'json',
+        cache: false,
+        success: (records) => {
+          records.sort(this.compare);
+          this.setState({records: records});
+        },
+        error: (xhr, status, err) => {
+          console.error(status, err.toString());
+        }
+      });
+    }
   }
   handleCommentSubmit(record) {
     $.ajax({
@@ -50,13 +63,13 @@ export default class RecordApp extends React.Component {
       dataType: 'json',
       type: 'POST',
       data: record,
-      success: function(data) {
-        data.sort(this.compare);
-        this.setState({records: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      success: (records) => {
+        records.sort(this.compare);
+        this.setState({records: records});
+      },
+      error: (xhr, status, err) => {
+        console.error(status, err.toString());
+      }
     });
   }
   updateRecord(record) {
@@ -66,13 +79,13 @@ export default class RecordApp extends React.Component {
       dataType: 'json',
       type: 'PUT',
       data: record,
-      success: function(data) {
-        data.sort(this.compare);
-        this.setState({records: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
+      success: (records) => {
+        records.sort(this.compare);
+        this.setState({records: records});
+      },
+      error: (xhr, status, err) => {
         console.error(status, err.toString());
-      }.bind(this)
+      }
     });
   }
   deleteRecord(id) {
@@ -81,13 +94,13 @@ export default class RecordApp extends React.Component {
       dataType: 'json',
       type: 'DELETE',
       data: id,
-      success: function(data) {
-        data.sort(this.compare);
-        this.setState({records: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
+      success: (records) => {
+        records.sort(this.compare);
+        this.setState({records: records});
+      },
+      error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }
     });
   }
   handleUserInput(filterText) {

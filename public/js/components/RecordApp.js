@@ -13,6 +13,7 @@ export default class RecordApp extends React.Component {
   componentDidMount() {
     this.loadCommentsFromServer(); 
   }
+
   compare(a,b) {
     if (a.artist && b.artist) {
       let a_artist = a.artist.replace('The ', '');
@@ -23,9 +24,10 @@ export default class RecordApp extends React.Component {
         return 1;
       return 0;
     } else {
-      return false;
+      return;
     }
   }
+
   loadCommentsFromServer() {
     // fetch, only works in chrome:(
     if(self.fetch) {
@@ -57,6 +59,7 @@ export default class RecordApp extends React.Component {
       });
     }
   }
+
   handleCommentSubmit(record) {
     $.ajax({
       url: '/records',
@@ -72,6 +75,7 @@ export default class RecordApp extends React.Component {
       }
     });
   }
+
   updateRecord(record) {
     let id = record.id;
     $.ajax({
@@ -88,6 +92,7 @@ export default class RecordApp extends React.Component {
       }
     });
   }
+
   deleteRecord(id) {
     $.ajax({
       url: '/records/' + id,
@@ -103,6 +108,7 @@ export default class RecordApp extends React.Component {
       }
     });
   }
+
   handleUserInput(filterText) {
     this.setState({
       filterText: filterText

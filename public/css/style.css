@@ -5,7 +5,7 @@
 
 html, body {
   font-family: "Lucida Grande";
-  padding: 15px 0;
+  /*padding: 15px 0;*/
   background-color: #EFEFEF;
 }
 
@@ -33,7 +33,6 @@ h3 {
 .record {
   padding-bottom: 5px;
   width: 93%;
-  height: 334px;
 }
 
 .info {
@@ -45,7 +44,6 @@ h3 {
 
 .album {
   width: 300px;
-  float: left;
 }
 
 input {
@@ -127,5 +125,5 @@ input {
   }
   .loader {
     margin-left: 35%;
-}
+  }
 }

@@ -5,7 +5,6 @@
 
 html, body {
   font-family: "Lucida Grande";
-  /*padding: 15px 0;*/
   background-color: #EFEFEF;
 }
 
@@ -27,12 +26,14 @@ h3 {
 }
 
 .list {
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 .record {
   padding-bottom: 5px;
   width: 93%;
+  height: 310px;
+  margin-bottom: 25px;
 }
 
 .info {
@@ -44,6 +45,7 @@ h3 {
 
 .album {
   width: 300px;
+  float: left;
 }
 
 input {
@@ -53,7 +55,7 @@ input {
 
 .addForm {
   position: fixed;
-  margin: 30px;
+  margin: 55px 30px;
   width: 400px;
 }
 
@@ -76,7 +78,7 @@ input {
   width: 130px;
 }
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 992px) {
   
   .navbar-default {
     height: 106px;

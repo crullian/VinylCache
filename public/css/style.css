@@ -81,7 +81,6 @@ input {
 @media screen and (max-width: 992px) {
   
   .navbar-default {
-    height: 106px;
     background-color: rgba(68, 66, 66, 0.98);
   }
 
@@ -108,8 +107,13 @@ input {
 
   .addForm {
     padding-top: 65px;
+    margin-bottom: 0;
     width: 90%;
     position: relative;
+  }
+
+  .list {
+    padding-top: 0;
   }
 
   .record {

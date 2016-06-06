@@ -24,14 +24,14 @@ export default class Comment extends React.Component {
       'id': this.props.id
     };
     this.setState({isEditing: false});
-    // return this.props.onUpdate(record);
+    return this.props.onUpdate(record);
   }
 
   handleDelete(e) {
     e.preventDefault();
     let recordId = this.props.id;
     this.setState({isEditing: false});
-    // this.props.onDelete(recordId);
+    this.props.onDelete(recordId);
   }
 
   render() {

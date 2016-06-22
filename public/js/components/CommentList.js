@@ -22,6 +22,7 @@ export default class CommentList extends React.Component {
 
     let searchString = this.props.filterText.toLowerCase().replace(/\W/g, '');
     let records = this.props.records.filter(record => {
+      console.debug('record', record);
       let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).replace(/\W/g, '');
       return strTofind.indexOf(searchString) !== -1;
     }).map((record, index) => {
@@ -29,6 +30,7 @@ export default class CommentList extends React.Component {
         <Comment artist={ record.artist } 
                  title={ record.title } 
                  imgUrl={ record.imgUrl } 
+                 year={ record.year }
                  id={record._id}
                  onDelete={ this.handleDelete.bind(this) } 
                  onUpdate={ this.handleUpdate.bind(this) }

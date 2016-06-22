@@ -6,7 +6,8 @@ export default class Comment extends React.Component {
     isEditing: false,
     artist: null,
     title: null,
-    imgUrl: null
+    imgUrl: null,
+    year:null
   };
 
   showEdit(e) {
@@ -60,6 +61,9 @@ export default class Comment extends React.Component {
           <h3>
             { this.props.title }
           </h3>
+          <h5>
+            { this.props.year }
+          </h5>
           <div className="btn btn-default edit" onClick={this.showEdit.bind(this)}>{buttonText}</div>
           <div>
             {editForm}

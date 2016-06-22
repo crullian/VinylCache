@@ -94,19 +94,21 @@ export default class RecordApp extends React.Component {
   }
 
   deleteRecord(id) {
-    $.ajax({
-      url: '/records/' + id,
-      dataType: 'json',
-      type: 'DELETE',
-      data: id,
-      success: (records) => {
-        records.sort(this.compare);
-        this.setState({records: records});
-      },
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString());
-      }
-    });
+    if(confirm('Are you sure you want to delete this record?')) {
+      $.ajax({
+        url: '/records/' + id,
+        dataType: 'json',
+        type: 'DELETE',
+        data: id,
+        success: (records) => {
+          records.sort(this.compare);
+          this.setState({records: records});
+        },
+        error: (xhr, status, err) => {
+          console.error(this.props.url, status, err.toString());
+        }
+      });
+    }
   }
 
   handleUserInput(filterText) {

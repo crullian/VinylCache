@@ -44,6 +44,7 @@ export default class Comment extends React.Component {
           <input id="artist" defaultValue={this.props.artist} onChange={e => this.setState({artist: e.target.value})}/><br />
           <input id="title"  defaultValue={this.props.title}  onChange={e => this.setState({title: e.target.value})}/><br />
           <input id="imgUrl" defaultValue={this.props.imgUrl} onChange={e => this.setState({imgUrl: e.target.value})}/><br />
+          <input id="year" defaultValue={this.props.year} onChange={e => this.setState({year: e.target.value})}/><br />
           <div className="btn btn-info update" onClick={this.handleUpdate.bind(this)}>Submit edits</div>
           <div className="btn btn-danger" onClick={this.handleDelete.bind(this)}>Remove</div>
         </form>

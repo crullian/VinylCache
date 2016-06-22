@@ -29,6 +29,7 @@ export default class CommentList extends React.Component {
         <Comment artist={ record.artist } 
                  title={ record.title } 
                  imgUrl={ record.imgUrl } 
+                 year={ record.year }
                  id={record._id}
                  onDelete={ this.handleDelete.bind(this) } 
                  onUpdate={ this.handleUpdate.bind(this) }

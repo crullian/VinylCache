@@ -22,7 +22,7 @@ export default class CommentList extends React.Component {
 
     let searchString = this.props.filterText.toLowerCase().replace(/\W/g, '');
     let records = this.props.records.filter(record => {
-      let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).replace(/\W/g, '');
+      let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
       return strTofind.indexOf(searchString) !== -1;
     }).map((record, index) => {
       return (

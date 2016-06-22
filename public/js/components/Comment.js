@@ -22,6 +22,7 @@ export default class Comment extends React.Component {
       'artist': this.state.artist ? this.state.artist : this.props.artist,
       'title': this.state.title ? this.state.title : this.props.title, 
       'imgUrl': this.state.imgUrl ? this.state.imgUrl : this.props.imgUrl,
+      'year': this.state.year ? this.state.year : this.props.year,
       'id': this.props.id
     };
     this.setState({isEditing: false});

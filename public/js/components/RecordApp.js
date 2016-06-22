@@ -18,11 +18,18 @@ export default class RecordApp extends React.Component {
     if (a.artist && b.artist) {
       let a_artist = a.artist.replace('The ', '');
       let b_artist = b.artist.replace('The ', '');
-      if (a_artist < b_artist)
+      if (a_artist < b_artist) {
         return -1;
-      if (a_artist > b_artist)
+      } else if (a_artist > b_artist) {
         return 1;
-      return 0;
+      }
+      if (a.year < b.year) {
+        return -1;
+      } else if (a.year > b.year) {
+        return 1;
+      } else {
+        return 0;
+      }
     } else {
       return;
     }

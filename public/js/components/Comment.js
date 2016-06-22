@@ -67,7 +67,7 @@ export default class Comment extends React.Component {
             { this.props.year }
           </h5>
           <div className="btn btn-default edit" onClick={this.showEdit.bind(this)}>{buttonText}</div>
-          <div>
+          <div className="editFormWrapper">
             {editForm}
           </div>
         </div>

@@ -12,14 +12,15 @@ html, body {
   background-color: rgba(248, 248, 248, 0.96);
 }
 
-h1 {
+h1, h3 {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-h3 {
+h5 {
   margin-top: 0px;
 }
+
 
 .loader {
   margin-left: 12%;
@@ -65,9 +66,14 @@ input {
   margin: 2px 0px;
 }
 
+.editFormWrapper {
+  margin-left: 60px;
+  margin-top: -44px;
+}
+
 #editForm {
-  height: 150px;
-  width: 248px;
+  /*height: 150px;
+  width: 248px;*/
 }
 
 #editForm input {

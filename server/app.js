@@ -30,27 +30,36 @@ app.get('/records', function(req, res) {
   if (req.query.title) {
     modelParams.title = req.query.title;
   }
-  RecordModel.find(modelParams, function(err, records) {
+  RecordModel.find(modelParams).then(function(records) {
     setTimeout(function() {
       res.send(records);
     }, Math.random() * 3000);
   });
 });
 
+// app.post('/records', function(req, res) {
+//   // Reference schema for what is expected as the POST body.
+//   var recordData = req.body;
+//   RecordModel.create(recordData, function(err, record) {
+//     // res.status(200).end();
+//     if (!err) {
+//       RecordModel.find({}, function(err, records) {
+//         res.send(records);
+//       })
+//     } else {
+//       console.log(err);
+//     }
+//   });
+// });
+
 app.post('/records', function(req, res) {
-  // Reference schema for what is expected as the POST body.
   var recordData = req.body;
-  RecordModel.create(recordData, function(err, record) {
-    // res.status(200).end();
-    if (!err) {
-      RecordModel.find({}, function(err, records) {
+  RecordModel.create(recordData).then(function(record) {
+    RecordModel.find({}).then(function(records) {
         res.send(records);
-      })
-    } else {
-      console.log(err);
-    }
-  });
-});
+      }).catch(console.log.bind(console));
+  }).catch(console.log.bind(console));
+})
 
 app.put('/records/:id', function(req, res) {
   RecordModel.findById(req.params.id, function(err, record) {

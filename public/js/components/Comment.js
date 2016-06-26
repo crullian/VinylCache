@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 export default class Comment extends React.Component {
 
@@ -7,7 +8,8 @@ export default class Comment extends React.Component {
     artist: null,
     title: null,
     imgUrl: null,
-    year:null
+    year: null,
+    active: false
   };
 
   showEdit(e) {
@@ -36,7 +38,12 @@ export default class Comment extends React.Component {
     this.props.onDelete(recordId);
   }
 
+  flip() {
+    this.setState({active: (this.state.active ? false : true)})
+  }
+
   render() {
+    let classes = classNames('f1_container', {active: this.state.active});
     let editForm = null;
     let buttonText = 'Edit';
     if (this.state.isEditing) {
@@ -55,7 +62,17 @@ export default class Comment extends React.Component {
 
     return (
       <div className="record">
-        <img src={this.props.imgUrl} className="album" width="300" height="300"/>
+        <div className={classes} onClick={this.flip.bind(this)}>
+          <div className="f1_card">
+            <div className="front face">
+              <img src={this.props.imgUrl} className="album" width="300" height="300"/>
+            </div>
+            <div className="back face">
+              <img src="http://4.bp.blogspot.com/_4Z5T3So9ztI/S-UiWYsn2wI/AAAAAAAAIGQ/Dgsao4PxYVc/s400/back.jpg" className="album" width="300" height="300"/>
+            </div>
+          </div>
+        </div>
+
         <div className="info">
           <h1>
             { this.props.artist }

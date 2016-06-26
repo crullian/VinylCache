@@ -55,40 +55,61 @@ app.get('/records', function(req, res) {
 app.post('/records', function(req, res) {
   var recordData = req.body;
   RecordModel.create(recordData).then(function(record) {
-    RecordModel.find({}).then(function(records) {
-        res.send(records);
-      }).catch(console.log.bind(console));
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records);   
   }).catch(console.log.bind(console));
 })
 
+// app.put('/records/:id', function(req, res) {
+//   RecordModel.findById(req.params.id, function(err, record) {
+//     record.update(req.body, function() {
+//       record.save(function(err) {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           // res.status(200).end();
+//           RecordModel.find({}, function(err, records) {
+//             res.send(records);
+//           })
+//         }
+//       })
+//     })
+//   })
+// })
+
 app.put('/records/:id', function(req, res) {
-  RecordModel.findById(req.params.id, function(err, record) {
-    record.update(req.body, function() {
-      record.save(function(err) {
-        if (err) {
-          console.log(err);
-        } else {
-          // res.status(200).end();
-          RecordModel.find({}, function(err, records) {
-            res.send(records);
-          })
-        }
-      })
-    })
-  })
+  RecordModel.findById(req.params.id).exec().then(function(record) {
+    console.log('record is', record, 'REQ', req.body);
+    return record.update(req.body); // .save isn't necessary here
+  }).then(function() {
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records);
+  }).catch(console.log.bind(console));
 })
 
+// app.delete('/records/:id', function(req, res) {
+//   RecordModel.findById(req.params.id, function(err, record) {
+//     record.remove(function(err) {
+//       if (!err) {
+//         RecordModel.find({}, function(err, records) {
+//           res.send(records);
+//         });
+//         // res.status(204).end();
+//       } else {
+//         console.log(err);
+//       }
+//     })
+//   })
+// })
+
 app.delete('/records/:id', function(req, res) {
-  RecordModel.findById(req.params.id, function(err, record) {
-    record.remove(function(err) {
-      if (!err) {
-        RecordModel.find({}, function(err, records) {
-          res.send(records);
-        });
-        // res.status(204).end();
-      } else {
-        console.log(err);
-      }
-    })
-  })
+  RecordModel.findById(req.params.id).exec().then(function(record) {
+    return record.remove();
+  }).then(function() {
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records);
+  }).catch(console.log.bind(console));
 })

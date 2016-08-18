@@ -24,12 +24,9 @@ app.get('/', function(req, res) {
 
 app.get('/records', function(req, res) {
   var modelParams = {};
-  if (req.query.artist) {
-    modelParams.artist = req.query.artist;
-  }
-  if (req.query.title) {
-    modelParams.title = req.query.title;
-  }
+  req.query.artist ? modelParams.artist = req.query.artist : null;
+  req.query.title ? modelParams.title = req.query.title : null;
+  req.query.year ? modelParams.year = req.query.year : null;
   RecordModel.find(modelParams).then(function(records) {
     setTimeout(function() {
       res.send(records);

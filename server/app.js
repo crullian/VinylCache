@@ -9,7 +9,8 @@ module.exports = app;
 var publicPath = path.join(__dirname, '../public');
 var indexHtmlPath = path.join(__dirname, '../index.html');
 
-var RecordModel = require('./models/record-model');
+var RecordModel = require('./models/record_model');
+var UserModel = require('./models/user_model');
 
 app.use(express.static(publicPath));
 app.use(logger('dev'));

@@ -1,7 +1,8 @@
-import React from "react";
-import NavBar from "./NavBar.js";
-import CommentList from "./CommentList.js";
-import CommentForm from "./CommentForm.js";
+import React from "react"
+import fetch from "isomorphic-fetch"
+import NavBar from "./NavBar.js"
+import CommentList from "./CommentList.js"
+import CommentForm from "./CommentForm.js"
 
 export default class RecordApp extends React.Component {
 
@@ -36,85 +37,69 @@ export default class RecordApp extends React.Component {
   }
 
   loadCommentsFromServer() {
-    // fetch, only works in chrome:(
-    if(self.fetch) {
-      fetch('/records').then(response => {
-        if (response.ok) {
-          return response.json().then(data => {
-            data.sort(this.compare);
-            return this.setState({records: data});
-          })
-        } else {
-          console.log(`Network response was not ok: ${response}`);
-        }
-      })
-      .catch( error => {
-        console.error(`There was a problem with your fetch operation: ${error.message}`);
-      });
-    } else {
-      $.ajax({
-        url: '/records',
-        dataType: 'json',
-        cache: false,
-        success: (records) => {
-          records.sort(this.compare);
-          this.setState({records: records});
-        },
-        error: (xhr, status, err) => {
-          console.error(status, err.toString());
-        }
-      });
-    }
+    fetch('/records').then(response => {
+      if (response.ok) {
+        return response.json().then(data => {
+          data.sort(this.compare);
+          return this.setState({records: data});
+        })
+      } else {
+        console.error(`Network response was not ok: ${response}`);
+      }
+    })
+    .catch( error => {
+      console.error(`There was a problem with your fetch operation: ${error.message}`);
+    });
   }
 
   handleCommentSubmit(record) {
-    $.ajax({
-      url: '/records',
-      dataType: 'json',
-      type: 'POST',
-      data: record,
-      success: (records) => {
-        records.sort(this.compare);
-        this.setState({records: records});
+    fetch('/records', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      error: (xhr, status, err) => {
-        console.error(status, err.toString());
-      }
-    });
+      body: JSON.stringify(record)
+    }).then(response => {
+      return response.json().then(data => {
+        data.sort(this.compare);
+        return this.setState({records: data})
+      })
+    })
   }
 
   updateRecord(record) {
     let id = record.id;
-    $.ajax({
-      url: '/records/' + id,
-      dataType: 'json',
-      type: 'PUT',
-      data: record,
-      success: (records) => {
-        records.sort(this.compare);
-        this.setState({records: records});
+    fetch(`/records/${id}`, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      error: (xhr, status, err) => {
-        console.error(status, err.toString());
-      }
-    });
+      body: JSON.stringify(record)
+    }).then(response => {
+      return response.json().then(data => {
+        data.sort(this.compare);
+        return this.setState({records: data})
+      })
+    })
   }
 
   deleteRecord(id) {
     if(confirm('Are you sure you want to delete this record?')) {
-      $.ajax({
-        url: '/records/' + id,
-        dataType: 'json',
-        type: 'DELETE',
-        data: id,
-        success: (records) => {
-          records.sort(this.compare);
-          this.setState({records: records});
+      fetch(`/records/${id}`, {
+        method: 'delete',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        error: (xhr, status, err) => {
-          console.error(this.props.url, status, err.toString());
-        }
-      });
+        body: {id}
+      }).then(response => {
+        return response.json().then(data => {
+          data.sort(this.compare);
+          return this.setState({records: data})
+        })
+      })
     }
   }
 
@@ -134,7 +119,6 @@ export default class RecordApp extends React.Component {
             <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
           </div>
           <div className="col-md-8 list">
-            
             <CommentList records={ this.state.records } 
                          delete={ this.deleteRecord.bind(this) }
                          update={ this.updateRecord.bind(this) }

@@ -77,7 +77,6 @@ app.post('/records', function(req, res) {
 
 app.put('/records/:id', function(req, res) {
   RecordModel.findById(req.params.id).exec().then(function(record) {
-    console.log('record is', record, 'REQ', req.body);
     return record.update(req.body); // .save isn't necessary here
   }).then(function() {
     return RecordModel.find({});

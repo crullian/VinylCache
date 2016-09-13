@@ -2,13 +2,17 @@ import React from "react";
 
 export default class Comment extends React.Component {
 
-  state = { 
-    isEditing: false,
-    artist: null,
-    title: null,
-    imgUrl: null,
-    year:null
+  static defaultState() { 
+    return {
+      isEditing: false,
+      artist: null,
+      title: null,
+      imgUrl: null,
+      year:null
+    }
   };
+
+  state = Comment.defaultState();
 
   showEdit(e) {
     this.setState({
@@ -25,7 +29,7 @@ export default class Comment extends React.Component {
       'year': this.state.year ? this.state.year : this.props.year,
       'id': this.props.id
     };
-    this.setState({isEditing: false});
+    this.setState(Comment.defaultState());
     return this.props.onUpdate(record);
   }
 

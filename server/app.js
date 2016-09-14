@@ -11,6 +11,27 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 
 var RecordModel = require('./models/record-model');
 
+var compare = function(a,b) {
+  if (a.artist && b.artist) {
+    var a_artist = a.artist.replace('The ', '');
+    var b_artist = b.artist.replace('The ', '');
+    if (a_artist < b_artist) {
+      return -1;
+    } else if (a_artist > b_artist) {
+      return 1;
+    }
+    if (a.year < b.year) {
+      return -1;
+    } else if (a.year > b.year) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return;
+  }
+}
+
 app.use(express.static(publicPath));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -29,7 +50,7 @@ app.get('/records', function(req, res) {
   req.query.year ? modelParams.year = req.query.year : null;
   RecordModel.find(modelParams).then(function(records) {
     setTimeout(function() {
-      res.send(records);
+      res.send(records.sort(compare));
     }, Math.random() * 3000);
   });
 });

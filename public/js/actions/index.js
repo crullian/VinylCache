@@ -1,3 +1,5 @@
+import fetch from "isomorphic-fetch"
+
 export const REQUEST_RECORDS = 'REQUEST_RECORDS'
 export const RECEIVE_RECORDS = 'RECEIVE_RECORDS'
 export const UPDATE_RECORDS = 'UPDATE_RECORDS'

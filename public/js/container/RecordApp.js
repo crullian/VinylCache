@@ -6,9 +6,9 @@ import NavBar from '../components/NavBar.js'
 import CommentList from '../components/CommentList.js'
 import CommentForm from '../components/CommentForm.js'
 
-// @connect(state => ({
-//   records: state.records
-// }))
+@connect(state => ({
+  records: state.recordsReducer.records
+}))
 
 class RecordApp extends React.Component {
 
@@ -16,12 +16,16 @@ class RecordApp extends React.Component {
     filterText: ''
   };
 
+  static propTypes = {
+    records: React.PropTypes.array.isRequired,
+    dispatch: React.PropTypes.func.isRequired
+  }
+
   // const mapDispatchToProps = (dispatch) => {
 
   // }
 
   componentDidMount() {
-    // this.loadCommentsFromServer();
     const { dispatch } = this.props
     dispatch(fetchRecords()) 
   }
@@ -124,15 +128,15 @@ class RecordApp extends React.Component {
   }
 }
 
-RecordApp.propTypes = {
-  records: React.PropTypes.array.isRequired,
-  dispatch: React.PropTypes.func.isRequired
-}
+// RecordApp.propTypes = {
+//   records: React.PropTypes.array.isRequired,
+//   dispatch: React.PropTypes.func.isRequired
+// }
 
-const mapStateToProps = state => {
-  return {
-    records: state.recordsReducer.records
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     records: state.recordsReducer.records
+//   }
+// }
 
-export default connect(mapStateToProps)(RecordApp)
+export default RecordApp

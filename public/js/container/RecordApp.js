@@ -6,12 +6,20 @@ import NavBar from '../components/NavBar.js'
 import CommentList from '../components/CommentList.js'
 import CommentForm from '../components/CommentForm.js'
 
-export default class RecordApp extends React.Component {
+// @connect(state => ({
+//   records: state.records
+// }))
+
+class RecordApp extends React.Component {
 
   state = {
     filterText: '',
     records: []
   };
+
+  // const mapDispatchToProps = (dispatch) => {
+
+  // }
 
   componentDidMount() {
     // this.loadCommentsFromServer();
@@ -56,56 +64,59 @@ export default class RecordApp extends React.Component {
   //   });
   // }
 
-  // handleCommentSubmit(record) {
-  //   fetch('/records', {
-  //     method: 'post',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(record)
-  //   }).then(response => {
-  //     return response.json().then(data => {
-  //       data.sort(this.compare);
-  //       return this.setState({records: data})
-  //     })
-  //   })
-  // }
+  handleCommentSubmit(record) {
+    console.log(record)
+    // fetch('/records', {
+    //   method: 'post',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(record)
+    // }).then(response => {
+    //   return response.json().then(data => {
+    //     data.sort(this.compare);
+    //     return this.setState({records: data})
+    //   })
+    // })
+  }
 
-  // updateRecord(record) {
-  //   let id = record.id;
-  //   fetch(`/records/${id}`, {
-  //     method: 'put',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(record)
-  //   }).then(response => {
-  //     return response.json().then(data => {
-  //       data.sort(this.compare);
-  //       return this.setState({records: data})
-  //     })
-  //   })
-  // }
+  updateRecord(record) {
+    let id = record.id
+    console.log(id)
+    // fetch(`/records/${id}`, {
+    //   method: 'put',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(record)
+    // }).then(response => {
+    //   return response.json().then(data => {
+    //     data.sort(this.compare);
+    //     return this.setState({records: data})
+    //   })
+    // })
+  }
 
-  // deleteRecord(id) {
-  //   if(confirm('Are you sure you want to delete this record?')) {
-  //     fetch(`/records/${id}`, {
-  //       method: 'delete',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: {id}
-  //     }).then(response => {
-  //       return response.json().then(data => {
-  //         data.sort(this.compare);
-  //         return this.setState({records: data})
-  //       })
-  //     })
-  //   }
-  // }
+  deleteRecord(id) {
+    if(confirm('Are you sure you want to delete this record?')) {
+      console.log(id)
+      // fetch(`/records/${id}`, {
+      //   method: 'delete',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: {id}
+      // }).then(response => {
+      //   return response.json().then(data => {
+      //     data.sort(this.compare);
+      //     return this.setState({records: data})
+      //   })
+      // })
+    }
+  }
 
   handleUserInput(filterText) {
     this.setState({
@@ -114,6 +125,7 @@ export default class RecordApp extends React.Component {
   }
 
   render() {
+    const { records } = this.props
     return (
       <div>
         <NavBar setSearchInput={this.handleUserInput.bind(this)} filterText={this.state.filterText}/>
@@ -123,7 +135,7 @@ export default class RecordApp extends React.Component {
             <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
           </div>
           <div className="col-md-8 list">
-            <CommentList records={ this.state.records } 
+            <CommentList records={ records } 
                          delete={ this.deleteRecord.bind(this) }
                          update={ this.updateRecord.bind(this) }
                          filterText={this.state.filterText} />
@@ -133,3 +145,18 @@ export default class RecordApp extends React.Component {
     );
   }
 }
+
+RecordApp.propTypes = {
+  records: React.PropTypes.array.isRequired,
+  dispatch: React.PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => {
+  console.log('WHATS THE STATE?', state);
+  // const { records: records } = state.records
+  return {
+    records: state.recordsReducer.records
+  }
+}
+
+export default connect(mapStateToProps)(RecordApp)

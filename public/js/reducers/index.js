@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux'
-import { GET_RECORDS, UPDATE_RECORDS, DELETE_RECORDS } from '../actions'
+import { REQUEST_RECORDS, RECEIVE_RECORDS, UPDATE_RECORDS, DELETE_RECORDS } from '../actions'
 
-const recordsReducer = (state = {}, action) => {
-  console.log('ACTION', action)
+const recordsReducer = (state = {records:[]}, action) => {
+  console.log('ACTION', action, 'STATE', state);
   switch (action.type) {
-    case GET_RECORDS:
+    case REQUEST_RECORDS:
+      return {
+        ...state
+      }
+    case RECEIVE_RECORDS:
       return {
         ...state,
-        
+        records: action.records
       }
       default:
         return state

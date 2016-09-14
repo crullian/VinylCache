@@ -7,7 +7,7 @@ export const requestRecords = () => ({
   type: REQUEST_RECORDS,
 })
 
-export const receiveRecords = (json) => ({
+export const receiveRecords = json => ({
   type: RECEIVE_RECORDS,
   records: json
 })
@@ -16,8 +16,5 @@ export const fetchRecords = () => dispatch => {
   dispatch(requestRecords())
   return fetch(`/records`)
     .then(response => response.json())
-    .then(json => {
-      console.log(json)
-      return dispatch(receiveRecords(json))
-    })
+    .then(json => dispatch(receiveRecords(json)))
 }

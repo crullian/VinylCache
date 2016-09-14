@@ -13,8 +13,7 @@ import CommentForm from '../components/CommentForm.js'
 class RecordApp extends React.Component {
 
   state = {
-    filterText: '',
-    records: []
+    filterText: ''
   };
 
   // const mapDispatchToProps = (dispatch) => {
@@ -25,27 +24,6 @@ class RecordApp extends React.Component {
     // this.loadCommentsFromServer();
     const { dispatch } = this.props
     dispatch(fetchRecords()) 
-  }
-
-  compare(a,b) {
-    if (a.artist && b.artist) {
-      let a_artist = a.artist.replace('The ', '');
-      let b_artist = b.artist.replace('The ', '');
-      if (a_artist < b_artist) {
-        return -1;
-      } else if (a_artist > b_artist) {
-        return 1;
-      }
-      if (a.year < b.year) {
-        return -1;
-      } else if (a.year > b.year) {
-        return 1;
-      } else {
-        return 0;
-      }
-    } else {
-      return;
-    }
   }
 
   // loadCommentsFromServer() {
@@ -152,8 +130,6 @@ RecordApp.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log('WHATS THE STATE?', state);
-  // const { records: records } = state.records
   return {
     records: state.recordsReducer.records
   }

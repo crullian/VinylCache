@@ -30,10 +30,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader?plugins[]=transform-decorators-legacy&presets[]=es2015&presets[]=stage-0&presets[]=react"],
-        query: {
-          plugins: ['transform-decorators-legacy']
-        }
+        loaders: ["babel-loader?plugins[]=transform-decorators-legacy&presets[]=es2015&presets[]=stage-0&presets[]=react"]
       }
     ]
   }

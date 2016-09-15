@@ -1,5 +1,4 @@
 import React from 'react'
-// import fetch from "isomorphic-fetch"
 import { connect } from 'react-redux'
 import { fetchRecords } from '../actions'
 import NavBar from '../components/NavBar.js'
@@ -21,30 +20,10 @@ class RecordApp extends React.Component {
     dispatch: React.PropTypes.func.isRequired
   }
 
-  // const mapDispatchToProps = (dispatch) => {
-
-  // }
-
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchRecords()) 
   }
-
-  // loadCommentsFromServer() {
-  //   fetch('/records').then(response => {
-  //     if (response.ok) {
-  //       return response.json().then(data => {
-  //         data.sort(this.compare);
-  //         return this.setState({records: data});
-  //       })
-  //     } else {
-  //       console.error(`Network response was not ok: ${response}`);
-  //     }
-  //   })
-  //   .catch( error => {
-  //     console.error(`There was a problem with your fetch operation: ${error.message}`);
-  //   });
-  // }
 
   handleCommentSubmit(record) {
     console.log(record)
@@ -128,15 +107,19 @@ class RecordApp extends React.Component {
   }
 }
 
+// another way:
 // RecordApp.propTypes = {
 //   records: React.PropTypes.array.isRequired,
 //   dispatch: React.PropTypes.func.isRequired
 // }
 
+// without decorator:
 // const mapStateToProps = state => {
 //   return {
 //     records: state.recordsReducer.records
 //   }
 // }
+
+// export default connect(mapStateToProps)(RecordApp)
 
 export default RecordApp

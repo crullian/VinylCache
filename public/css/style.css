@@ -45,6 +45,8 @@ h5 {
 }
 
 .album {
+  padding: 0;
+  box-shadow: 6px 7px 20px #adadad;
   width: 300px;
   float: left;
 }

@@ -75,7 +75,7 @@ app.post('/records', function(req, res) {
   RecordModel.create(recordData).then(function(record) {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);   
+    return res.send(records.sort(compare));   
   }).catch(console.log.bind(console));
 })
 
@@ -102,7 +102,7 @@ app.put('/records/:id', function(req, res) {
   }).then(function() {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);
+    return res.send(records.sort(compare));
   }).catch(console.log.bind(console));
 })
 
@@ -127,6 +127,6 @@ app.delete('/records/:id', function(req, res) {
   }).then(function() {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);
+    return res.send(records.sort(compare));
   }).catch(console.log.bind(console));
 })

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Comment extends React.Component {
+export default class Record extends React.Component {
 
   static defaultState() { 
     return {
@@ -12,7 +12,7 @@ export default class Comment extends React.Component {
     }
   };
 
-  state = Comment.defaultState();
+  state = Record.defaultState();
 
   showEdit(e) {
     this.setState({
@@ -29,7 +29,7 @@ export default class Comment extends React.Component {
       'year': this.state.year ? this.state.year : this.props.year,
       'id': this.props.id
     };
-    this.setState(Comment.defaultState());
+    this.setState(Record.defaultState());
     return this.props.onUpdate(record);
   }
 

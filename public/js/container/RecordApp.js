@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchRecords } from '../actions'
+import { fetchRecords, submitRecord, editRecord, removeRecord } from '../actions'
 import NavBar from '../components/NavBar.js'
-import CommentList from '../components/CommentList.js'
-import CommentForm from '../components/CommentForm.js'
+import RecordList from '../components/RecordList.js'
+import RecordForm from '../components/RecordForm.js'
 
 @connect(state => ({
   records: state.recordsReducer.records
@@ -19,63 +19,22 @@ class RecordApp extends React.Component {
     records: React.PropTypes.array.isRequired,
     dispatch: React.PropTypes.func.isRequired
   }
-
+  
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchRecords()) 
+    this.props.dispatch(fetchRecords()) 
   }
 
-  handleCommentSubmit(record) {
-    console.log(record)
-    // fetch('/records', {
-    //   method: 'post',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(record)
-    // }).then(response => {
-    //   return response.json().then(data => {
-    //     data.sort(this.compare);
-    //     return this.setState({records: data})
-    //   })
-    // })
+  handleRecordSubmit(record) {
+    this.props.dispatch(submitRecord(record))
   }
 
   updateRecord(record) {
-    let id = record.id
-    console.log(id)
-    // fetch(`/records/${id}`, {
-    //   method: 'put',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(record)
-    // }).then(response => {
-    //   return response.json().then(data => {
-    //     data.sort(this.compare);
-    //     return this.setState({records: data})
-    //   })
-    // })
+    this.props.dispatch(editRecord(record))
   }
 
   deleteRecord(id) {
     if(confirm('Are you sure you want to delete this record?')) {
-      console.log(id)
-      // fetch(`/records/${id}`, {
-      //   method: 'delete',
-      //   headers: {
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: {id}
-      // }).then(response => {
-      //   return response.json().then(data => {
-      //     data.sort(this.compare);
-      //     return this.setState({records: data})
-      //   })
-      // })
+      this.props.dispatch(removeRecord(id))
     }
   }
 
@@ -93,10 +52,10 @@ class RecordApp extends React.Component {
 
         <div className="row">
           <div className="col-md-4">
-            <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
+            <RecordForm onRecordSubmit={this.handleRecordSubmit.bind(this)} />
           </div>
           <div className="col-md-8 list">
-            <CommentList records={ records } 
+            <RecordList records={ records } 
                          delete={ this.deleteRecord.bind(this) }
                          update={ this.updateRecord.bind(this) }
                          filterText={this.state.filterText} />
@@ -107,13 +66,7 @@ class RecordApp extends React.Component {
   }
 }
 
-// another way:
-// RecordApp.propTypes = {
-//   records: React.PropTypes.array.isRequired,
-//   dispatch: React.PropTypes.func.isRequired
-// }
-
-// without decorator:
+// connect without decorator:
 // const mapStateToProps = state => {
 //   return {
 //     records: state.recordsReducer.records

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-export default class CommentForm extends React.Component {
+export default class RecordForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let artist = ReactDOM.findDOMNode(this.refs.artist).value;
@@ -11,13 +11,14 @@ export default class CommentForm extends React.Component {
     if(!title || !artist || !imgUrl) {
       return;
     }
-    this.props.onCommentSubmit({artist: artist.trim(), title: title.trim(), imgUrl: imgUrl.trim(), year: year.trim()});
+    this.props.onRecordSubmit({artist: artist.trim(), title: title.trim(), imgUrl: imgUrl.trim(), year: year.trim()});
     ReactDOM.findDOMNode(this.refs.artist).value = '';
     ReactDOM.findDOMNode(this.refs.title).value = '';
     ReactDOM.findDOMNode(this.refs.imgUrl).value = '';
     ReactDOM.findDOMNode(this.refs.year).value = '';
     return;
   }
+  
   render() {
     return ( 
       <form className="addForm" name="submitForm" onSubmit={this.handleSubmit.bind(this)}>

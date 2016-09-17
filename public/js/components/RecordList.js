@@ -1,7 +1,7 @@
 import React from "react";
-import Comment from "./Comment.js";
+import Record from "./Record.js";
 
-export default class CommentList extends React.Component {
+export default class RecordList extends React.Component {
   handleDelete(recordId) {
     return this.props.delete(recordId);
   }
@@ -11,6 +11,8 @@ export default class CommentList extends React.Component {
   }
 
   render() {
+    const { records, filterText } = this.props
+
     let loader = null;
     if(!this.props.records.length){
       loader = (
@@ -20,13 +22,13 @@ export default class CommentList extends React.Component {
       );
     }
 
-    let searchString = this.props.filterText.toLowerCase().replace(/\W/g, '');
-    let records = this.props.records.filter(record => {
+    let searchString = filterText.toLowerCase().replace(/\W/g, '');
+    let recordList = records.filter(record => {
       let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
       return strTofind.indexOf(searchString) !== -1;
     }).map((record, index) => {
       return (
-        <Comment artist={ record.artist } 
+        <Record artist={ record.artist } 
                  title={ record.title } 
                  imgUrl={ record.imgUrl } 
                  year={ record.year }
@@ -40,7 +42,7 @@ export default class CommentList extends React.Component {
     return (
       <div>
         { loader }
-        { records }
+        { recordList }
       </div>
     );
   }

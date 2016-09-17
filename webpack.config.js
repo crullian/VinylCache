@@ -30,7 +30,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ["react-hot-loader", "babel-loader?presets[]=es2015&presets[]=stage-0&presets[]=react"],
+        loaders: ["react-hot-loader", "babel-loader?plugins[]=transform-decorators-legacy&presets[]=es2015&presets[]=stage-0&presets[]=react"],
         include: path.join(__dirname, 'public')
       }
       // ,

@@ -12,6 +12,27 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 var RecordModel = require('./models/record_model');
 var UserModel = require('./models/user_model');
 
+var compare = function(a,b) {
+  if (a.artist && b.artist) {
+    var a_artist = a.artist.replace('The ', '');
+    var b_artist = b.artist.replace('The ', '');
+    if (a_artist < b_artist) {
+      return -1;
+    } else if (a_artist > b_artist) {
+      return 1;
+    }
+    if (a.year < b.year) {
+      return -1;
+    } else if (a.year > b.year) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return;
+  }
+}
+
 app.use(express.static(publicPath));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -30,7 +51,7 @@ app.get('/records', function(req, res) {
   req.query.year ? modelParams.year = req.query.year : null;
   RecordModel.find(modelParams).then(function(records) {
     setTimeout(function() {
-      res.send(records);
+      res.send(records.sort(compare));
     }, Math.random() * 3000);
   });
 });
@@ -55,7 +76,7 @@ app.post('/records', function(req, res) {
   RecordModel.create(recordData).then(function(record) {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);   
+    return res.send(records.sort(compare));   
   }).catch(console.log.bind(console));
 })
 
@@ -78,12 +99,11 @@ app.post('/records', function(req, res) {
 
 app.put('/records/:id', function(req, res) {
   RecordModel.findById(req.params.id).exec().then(function(record) {
-    console.log('record is', record, 'REQ', req.body);
     return record.update(req.body); // .save isn't necessary here
   }).then(function() {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);
+    return res.send(records.sort(compare));
   }).catch(console.log.bind(console));
 })
 
@@ -108,6 +128,6 @@ app.delete('/records/:id', function(req, res) {
   }).then(function() {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records);
+    return res.send(records.sort(compare));
   }).catch(console.log.bind(console));
 })

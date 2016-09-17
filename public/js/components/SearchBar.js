@@ -14,7 +14,6 @@ export default class SearchBar extends React.Component {
           type="text"
           className="form-control"
           placeholder="Search..."
-          value={this.props.filterText}
           ref="filterTextInput"
           onChange={this.handleChange.bind(this)}
           autoFocus

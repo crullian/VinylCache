@@ -3,7 +3,7 @@
   padding: 5px;
 }
 
-html, body {
+body {
   font-family: "Lucida Grande";
   background-color: #EFEFEF;
 }
@@ -12,15 +12,15 @@ html, body {
   background-color: rgba(248, 248, 248, 0.96);
 }
 
-h1, h3 {
-  margin-top: 0px;
-  margin-bottom: 0px;
+h3, h4 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 h5 {
-  margin-top: 0px;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
-
 
 .loader {
   margin-left: 12%;

@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 
-export default class Comment extends React.Component {
+export default class Record extends React.Component {
 
   static defaultState() { 
     return {
@@ -12,7 +12,7 @@ export default class Comment extends React.Component {
     }
   };
 
-  state = Comment.defaultState();
+  state = Record.defaultState()
 
   showEdit(e) {
     this.setState({
@@ -29,7 +29,7 @@ export default class Comment extends React.Component {
       'year': this.state.year ? this.state.year : this.props.year,
       'id': this.props.id
     };
-    this.setState(Comment.defaultState());
+    this.setState(Record.defaultState());
     return this.props.onUpdate(record);
   }
 
@@ -41,6 +41,7 @@ export default class Comment extends React.Component {
   }
 
   render() {
+    const { artist, title, year, imgUrl } = this.props
     let editForm = null;
     let buttonText = 'Edit';
     if (this.state.isEditing) {
@@ -59,20 +60,20 @@ export default class Comment extends React.Component {
 
     return (
       <div className="record">
-        <img src={this.props.imgUrl} className="album" width="300" height="300"/>
+        <img src={ imgUrl } className="album" width="300" height="300"/>
         <div className="info">
-          <h1>
-            { this.props.artist }
-          </h1>
           <h3>
-            { this.props.title }
+            { artist }
           </h3>
+          <h4>
+            { title }
+          </h4>
           <h5>
-            { this.props.year }
+            { year }
           </h5>
           <div className="btn btn-default edit" onClick={this.showEdit.bind(this)}>{buttonText}</div>
           <div className="editFormWrapper">
-            {editForm}
+            { editForm }
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchRecords, submitRecord, editRecord, removeRecord } from '../actions'
+import { fetchRecords, 
+         submitRecord, 
+         editRecord, 
+         removeRecord } from '../actions'
 import NavBar from '../components/NavBar.js'
 import RecordList from '../components/RecordList.js'
 import RecordForm from '../components/RecordForm.js'
@@ -48,7 +51,7 @@ class RecordApp extends React.Component {
     const { records } = this.props
     return (
       <div>
-        <NavBar setSearchInput={this.handleUserInput.bind(this)} filterText={this.state.filterText}/>
+        <NavBar setSearchInput={this.handleUserInput.bind(this)} />
 
         <div className="row">
           <div className="col-md-4">

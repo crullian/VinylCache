@@ -1,5 +1,5 @@
-import React from "react";
-import Record from "./Record.js";
+import React from "react"
+import Record from "./Record.js"
 
 export default class RecordList extends React.Component {
   handleDelete(recordId) {

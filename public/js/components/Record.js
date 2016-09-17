@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export default class Record extends React.Component {
 
@@ -12,7 +12,7 @@ export default class Record extends React.Component {
     }
   };
 
-  state = Record.defaultState();
+  state = Record.defaultState()
 
   showEdit(e) {
     this.setState({

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchRecords, 
          submitRecord, 
@@ -9,18 +9,22 @@ import RecordList from '../components/RecordList.js'
 import RecordForm from '../components/RecordForm.js'
 
 @connect(state => ({
-  records: state.recordsReducer.records
+  records: state.recordsReducer.records,
+  isAuthenticated: state.authReducer.isAuthenticated,
+  errorMessage: state.authReducer.errorMessage
 }))
 
-class RecordApp extends React.Component {
+class RecordApp extends Component {
 
   state = {
     filterText: ''
   };
 
   static propTypes = {
-    records: React.PropTypes.array.isRequired,
-    dispatch: React.PropTypes.func.isRequired
+    records: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string
   }
   
   componentDidMount() {
@@ -48,20 +52,27 @@ class RecordApp extends React.Component {
   }
 
   render() {
-    const { records } = this.props
+    const { dispatch, records, isAuthenticated, errorMessage } = this.props
+    console.debug('isAuthenticated?', isAuthenticated);
     return (
       <div>
-        <NavBar setSearchInput={this.handleUserInput.bind(this)} />
+        <NavBar setSearchInput={ this.handleUserInput.bind(this) }
+                isAuthenticated={ isAuthenticated }
+                errorMessage={ errorMessage }
+                dispatch={ dispatch } />
 
         <div className="row">
+
           <div className="col-md-4">
-            <RecordForm onRecordSubmit={this.handleRecordSubmit.bind(this)} />
+            <RecordForm onRecordSubmit={ this.handleRecordSubmit.bind(this) } />
           </div>
+
           <div className="col-md-8 list">
             <RecordList records={ records } 
-                         delete={ this.deleteRecord.bind(this) }
-                         update={ this.updateRecord.bind(this) }
-                         filterText={this.state.filterText} />
+                        delete={ this.deleteRecord.bind(this) }
+                        update={ this.updateRecord.bind(this) }
+                        filterText={this.state.filterText}
+                        isAuthenticated={ isAuthenticated } />
           </div>
         </div>
       </div>
@@ -72,7 +83,9 @@ class RecordApp extends React.Component {
 // connect without decorator:
 // const mapStateToProps = state => {
 //   return {
-//     records: state.recordsReducer.records
+//     records: state.recordsReducer.records,
+//     isAuthenticated: state.authReducer.isAuthenticated,
+//     errorMessage: state.authReducer.errorMessage
 //   }
 // }
 

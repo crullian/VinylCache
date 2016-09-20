@@ -1,7 +1,12 @@
-import React from "react"
+import React, { Component, PropTypes } from "react"
 import Record from "./Record.js"
 
-export default class RecordList extends React.Component {
+export default class RecordList extends Component {
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+  }
+
   handleDelete(recordId) {
     return this.props.delete(recordId);
   }
@@ -11,7 +16,7 @@ export default class RecordList extends React.Component {
   }
 
   render() {
-    const { records, filterText } = this.props
+    const { records, filterText, isAuthenticated } = this.props
 
     let loader = null;
     if(!this.props.records.length){
@@ -29,13 +34,14 @@ export default class RecordList extends React.Component {
     }).map((record, index) => {
       return (
         <Record artist={ record.artist } 
-                 title={ record.title } 
-                 imgUrl={ record.imgUrl } 
-                 year={ record.year }
-                 id={record._id}
-                 onDelete={ this.handleDelete.bind(this) } 
-                 onUpdate={ this.handleUpdate.bind(this) }
-                 key={ index } />
+                title={ record.title } 
+                imgUrl={ record.imgUrl } 
+                year={ record.year }
+                id={record._id}
+                onDelete={ this.handleDelete.bind(this) } 
+                onUpdate={ this.handleUpdate.bind(this) }
+                isAuthenticated={ isAuthenticated }
+                key={ index } />
       );
     });
     

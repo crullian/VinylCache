@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
 
 var app = express();
 module.exports = app;
@@ -11,6 +12,8 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 
 var RecordModel = require('./models/record_model');
 var UserModel = require('./models/user_model');
+
+var secret = require(path.join(__dirname, './env')).SESSION_SECRET;
 
 var compare = function(a,b) {
   if (a.artist && b.artist) {
@@ -33,12 +36,32 @@ var compare = function(a,b) {
   }
 }
 
+app.set('superSecret', secret)
+
 app.use(express.static(publicPath));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+app.get('/setup', function(req, res) {
+
+  // create a sample user
+  var crullian = new UserModel({ 
+    username: 'chrisgullian', 
+    password: 'P@51tele5%',
+    admin: true 
+  });
+
+  // save the sample user
+  crullian.save(function(err) {
+    if (err) throw err;
+
+    console.log('User saved successfully');
+    res.json({ success: true });
+  });
+});
 
 app.get('/', function(req, res) {
   res.sendFile(indexHtmlPath);
@@ -56,6 +79,90 @@ app.get('/records', function(req, res) {
   });
 });
 
+app.post('/authenticate', function(req, res) {
+  UserModel.findOne({
+    username: req.body.username
+  }, function(err, user) {
+    if (err) throw err;
+    if (!user) {
+      res.send({success: false, message: 'Womp womp, user not found.'})
+    } else if (user) {
+      if (user.password != req.body.password) {
+        res.send({success: false, message: 'Wrong password, dawg.'})
+      } else {
+        var token = jwt.sign(user, app.get('superSecret'), {
+          expiresIn: '2 days'
+        })
+        res.send({
+          success: true,
+          message: 'Successfully logged in!',
+          token: token
+        })
+      }
+    }
+  })
+})
+
+// route middleware to verify a token
+app.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  // decode token
+  if (token) {
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      if (err) {
+        return res.status(403).send({success: false, message: 'Failed to authenticate token.'})
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    // if there's no token, return an error
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
+    })
+  }
+})
+
+app.get('/users', function(req, res) {
+  UserModel.find().then(function(users) {
+    res.send(users)
+  })
+})
+
+app.post('/records', function(req, res) {
+  var recordData = req.body;
+  RecordModel.create(recordData).then(function(record) {
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records.sort(compare));   
+  }).catch(console.log.bind(console));
+})
+
+app.put('/records/:id', function(req, res) {
+  RecordModel.findById(req.params.id).exec().then(function(record) {
+    return record.update(req.body); // .save isn't necessary here
+  }).then(function() {
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records.sort(compare));
+  }).catch(console.log.bind(console));
+})
+
+app.delete('/records/:id', function(req, res) {
+  RecordModel.findById(req.params.id).exec().then(function(record) {
+    return record.remove();
+  }).then(function() {
+    return RecordModel.find({});
+  }).then(function(records) {
+    return res.send(records.sort(compare));
+  }).catch(console.log.bind(console));
+})
+
 // app.post('/records', function(req, res) {
 //   // Reference schema for what is expected as the POST body.
 //   var recordData = req.body;
@@ -70,15 +177,6 @@ app.get('/records', function(req, res) {
 //     }
 //   });
 // });
-
-app.post('/records', function(req, res) {
-  var recordData = req.body;
-  RecordModel.create(recordData).then(function(record) {
-    return RecordModel.find({});
-  }).then(function(records) {
-    return res.send(records.sort(compare));   
-  }).catch(console.log.bind(console));
-})
 
 // app.put('/records/:id', function(req, res) {
 //   RecordModel.findById(req.params.id, function(err, record) {
@@ -97,16 +195,6 @@ app.post('/records', function(req, res) {
 //   })
 // })
 
-app.put('/records/:id', function(req, res) {
-  RecordModel.findById(req.params.id).exec().then(function(record) {
-    return record.update(req.body); // .save isn't necessary here
-  }).then(function() {
-    return RecordModel.find({});
-  }).then(function(records) {
-    return res.send(records.sort(compare));
-  }).catch(console.log.bind(console));
-})
-
 // app.delete('/records/:id', function(req, res) {
 //   RecordModel.findById(req.params.id, function(err, record) {
 //     record.remove(function(err) {
@@ -121,13 +209,3 @@ app.put('/records/:id', function(req, res) {
 //     })
 //   })
 // })
-
-app.delete('/records/:id', function(req, res) {
-  RecordModel.findById(req.params.id).exec().then(function(record) {
-    return record.remove();
-  }).then(function() {
-    return RecordModel.find({});
-  }).then(function(records) {
-    return res.send(records.sort(compare));
-  }).catch(console.log.bind(console));
-})

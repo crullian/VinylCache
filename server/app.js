@@ -50,10 +50,11 @@ app.get('/setup', function(req, res) {
   // create a sample user
   var crullian = new UserModel({ 
     username: 'chrisgullian', 
-    password: 'P@51tele5%',
+    // password: 'password',
     admin: true 
   });
 
+  crullian.setPassword('password');
   // save the sample user
   crullian.save(function(err) {
     if (err) throw err;
@@ -85,10 +86,10 @@ app.post('/authenticate', function(req, res) {
   }, function(err, user) {
     if (err) throw err;
     if (!user) {
-      res.send({success: false, message: 'Womp womp, user not found.'})
+      res.status(401).send({success: false, message: 'Womp womp, user not found.'})
     } else if (user) {
-      if (user.password != req.body.password) {
-        res.send({success: false, message: 'Wrong password, dawg.'})
+      if (!user.validPassword(req.body.password)) {
+        res.status(401).send({success: false, message: 'Wrong password, dawg.'})
       } else {
         var token = jwt.sign(user, app.get('superSecret'), {
           expiresIn: '2 days'

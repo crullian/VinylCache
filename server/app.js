@@ -49,8 +49,7 @@ app.get('/setup', function(req, res) {
 
   // create a sample user
   var crullian = new UserModel({ 
-    username: 'chrisgullian', 
-    // password: 'password',
+    username: 'chrisgullian',
     admin: true 
   });
 

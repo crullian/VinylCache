@@ -9,7 +9,6 @@ var userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  // password: String
   hashedPassword: String,
   salt: String,
   admin: Boolean

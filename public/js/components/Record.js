@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react"
 
-export default class Record extends React.Component {
+export default class Record extends Component {
 
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired

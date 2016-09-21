@@ -19,19 +19,23 @@ class NavBar extends Component {
   render() {
     const { dispatch, isAuthenticated, errorMessage } = this.props
 
+    let loginButton = (
+      <Login errorMessage={errorMessage}
+             onLoginClick={creds => dispatch(loginUser(creds))} />
+    );
+
+    if (isAuthenticated) {
+      loginButton = (
+        <Logout onLogoutClick={() => dispatch(logoutUser())} />
+      )
+    }
+
     return (
       <nav className="nav navbar-default navbar-fixed-top">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">VinylCache</a>
+          { loginButton }
           <SearchBar onUserInput={this.handleUserInput.bind(this)} />
-          {!isAuthenticated &&
-            <Login errorMessage={errorMessage}
-                   onLoginClick={creds => dispatch(loginUser(creds))}
-            />
-          }
-          {isAuthenticated &&
-            <Logout onLogoutClick={() => dispatch(logoutUser())} />
-          }
         </div>
       </nav>
     );

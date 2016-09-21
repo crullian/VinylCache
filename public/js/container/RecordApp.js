@@ -53,7 +53,6 @@ class RecordApp extends Component {
 
   render() {
     const { dispatch, records, isAuthenticated, errorMessage } = this.props
-    console.debug('isAuthenticated?', isAuthenticated);
     return (
       <div>
         <NavBar setSearchInput={ this.handleUserInput.bind(this) }

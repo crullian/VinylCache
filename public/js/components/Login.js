@@ -18,7 +18,7 @@ class Login extends Component {
     const { errorMessage } = this.props
 
     return (
-      <div>
+      <form className="navbar-form pull-right">
         <input type='text' ref='username' className="form-control" placeholder='Username'/>
         <input type='text' ref='password' className="form-control" placeholder='Password'/>
         <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
@@ -28,7 +28,7 @@ class Login extends Component {
         {errorMessage &&
           <p>{errorMessage}</p>
         }
-      </div>
+      </form>
     )
   }
 }

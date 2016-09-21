@@ -10,9 +10,11 @@ class Logout extends Component {
     const { onLogoutClick } = this.props
     
     return(
-      <button onClick={() => onLogoutClick()} className="btn btn-primary">
-        Logout
-      </button>
+      <form className="navbar-form pull-right">
+        <button onClick={() => onLogoutClick()} className="btn btn-primary">
+          Logout
+        </button>
+      </form>
     )
   }
 }

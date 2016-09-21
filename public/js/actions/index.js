@@ -45,7 +45,7 @@ export const receiveLogin = user => ({
   type: LOGIN_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
-  id_token: user.id_token
+  id_token: user.token
 })
 
 export const errorLogin = message => ({
@@ -74,6 +74,7 @@ export const errorLogout = () => ({
 })
 
 export const fetchRecords = () => dispatch => {
+  console.log('CALLING FETCH');
   dispatch(requestRecords())
   return fetch(`/records`, {
     method:'get',
@@ -107,12 +108,11 @@ export const submitRecord = record => dispatch => {
   })
   .then(response => {
     if (response.ok) {
-      return response.json()
+      return response.json().then(json => dispatch(receiveRecords(json)))
     } else {
       console.error(`Network response was not ok: ${response}`)
     }
   })
-  .then(json => dispatch(receiveRecords(json)))
   .catch(error => console.error(`There was a problem with your fetch operation: ${error.message}`))
 }
 
@@ -129,16 +129,16 @@ export const removeRecord = id => dispatch => {
   })
   .then(response => {
     if (response.ok) {
-      return response.json()
+      return response.json().then(json => dispatch(receiveRecords(json)))
     } else {
       console.error(`Network response was not ok: ${response}`)
     }
   })
-  .then(json => dispatch(receiveRecords(json)))
   .catch(error => console.error(`There was a problem with your fetch operation: ${error.message}`))
 }
 
 export const editRecord = record => dispatch => {
+  console.log('CALLING EDIT');
   dispatch(requestEditRecord())
   return fetch(`/records/${record.id}`, {
     method: 'put',
@@ -151,12 +151,13 @@ export const editRecord = record => dispatch => {
   })
   .then(response => {
     if (response.ok) {
-      return response.json()
+      console.log('RESPONSE', response);
+      return response.json().then(json => dispatch(receiveRecords(json)))
     } else {
-      console.error(`Network response was not ok: ${response}`)
+      console.error(`Network response was not ok: ${response.message}`)
     }
   })
-  .then(json => dispatch(receiveRecords(json)))
+  // .then(json => dispatch(receiveRecords(json)))
   .catch(error => console.error(`There was a problem with your fetch operation: ${error.message}`))
 }
 
@@ -170,9 +171,8 @@ export const loginUser = creds => dispatch => {
     body: `username=${creds.username}&password=${creds.password}`
   })
   .then(response => 
-    response.json()
-    .then(user => ({ user, response }))
-  ).then(({ user, response }) => {
+     response.json().then(user => ({ user, response })))
+  .then(({ user, response }) => {
     console.log('RESPONSE IS', user, response);
     if (!response.ok) {
       dispatch(errorLogin(user.message))
@@ -188,5 +188,5 @@ export const loginUser = creds => dispatch => {
 export const logoutUser = () => dispatch => {
   dispatch(requestLogout())
   localStorage.removeItem('id_token')
-  dispatch(receiveLogout)
+  dispatch(receiveLogout())
 }

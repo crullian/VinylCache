@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { REQUEST_RECORDS, 
-         RECEIVE_RECORDS, 
+         RECEIVE_RECORDS,
          UPDATE_RECORDS, 
          DELETE_RECORDS,
          LOGIN_REQUEST,
@@ -25,7 +25,7 @@ const recordsReducer = (state = {records:[]}, action) => {
 }
 
 const authReducer = (state = {
-    isFetching: false,
+    isFetching: true,
     isAuthenticated: localStorage.getItem('id_token') ? true : false
     // TODO: check if token is expired or not!
   }, action) => {
@@ -50,6 +50,12 @@ const authReducer = (state = {
         isFetching: false,
         isAuthenticated: false,
         errorMessage: action.message
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false
       }
     default:
       return state

@@ -1,0 +1,37 @@
+import React, { Component, PropTypes } from 'react'
+
+class Login extends Component {
+
+  static propTypes = {
+    onLoginClick: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    const username = this.refs.username
+    const password = this.refs.password
+    const creds = { username: username.value.trim(), password: password.value.trim() }
+    this.props.onLoginClick(creds)
+  } 
+
+  render() {
+    const { errorMessage } = this.props
+
+    return (
+      <form className="navbar-form pull-right">
+        <input type='text' ref='username' className="form-control" placeholder='Username'/>
+        <input type='text' ref='password' className="form-control" placeholder='Password'/>
+        <button onClick={this.handleClick.bind(this)} className="btn btn-primary">
+          Login
+        </button>
+
+        {errorMessage &&
+          <p>{errorMessage}</p>
+        }
+      </form>
+    )
+  }
+}
+
+export default Login

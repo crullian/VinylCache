@@ -1,6 +1,10 @@
-import React from "react"
+import React, { Component, PropTypes } from "react"
 
-export default class Record extends React.Component {
+export default class Record extends Component {
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+  }  
 
   static defaultState() { 
     return {
@@ -41,7 +45,8 @@ export default class Record extends React.Component {
   }
 
   render() {
-    const { artist, title, year, imgUrl } = this.props
+    const { artist, title, year, imgUrl, isAuthenticated } = this.props
+
     let editForm = null;
     let buttonText = 'Edit';
     if (this.state.isEditing) {

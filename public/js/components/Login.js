@@ -7,7 +7,8 @@ class Login extends Component {
     errorMessage: PropTypes.string
   }
 
-  handleClick(event) {
+  handleClick(e) {
+    e.preventDefault()
     const username = this.refs.username
     const password = this.refs.password
     const creds = { username: username.value.trim(), password: password.value.trim() }
@@ -21,7 +22,7 @@ class Login extends Component {
       <form className="navbar-form pull-right">
         <input type='text' ref='username' className="form-control" placeholder='Username'/>
         <input type='text' ref='password' className="form-control" placeholder='Password'/>
-        <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
+        <button onClick={this.handleClick.bind(this)} className="btn btn-primary">
           Login
         </button>
 

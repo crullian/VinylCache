@@ -6,12 +6,16 @@ class Logout extends Component {
     onLogoutClick: PropTypes.func.isRequired
   }
   
+  logOut(e) {
+    e.preventDefault()
+    return this.props.onLogoutClick()
+  }
+
   render() {
-    const { onLogoutClick } = this.props
     
     return(
       <form className="navbar-form pull-right">
-        <button onClick={() => onLogoutClick()} className="btn btn-primary">
+        <button onClick={this.logOut.bind(this)} className="btn btn-primary">
           Logout
         </button>
       </form>

@@ -15,23 +15,25 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
 export const requestRecords = () => ({
   type: REQUEST_RECORDS,
+  isFetchingRecords: true
 })
 
 export const receiveRecords = json => ({
   type: RECEIVE_RECORDS,
+  isFetchingRecords: false,
   records: json
 })
 
 export const requestSubmitRecord = () => ({
-  type: REQUEST_SUBMIT_RECORD,
+  type: REQUEST_SUBMIT_RECORD
 })
 
 export const requestEditRecord = () => ({
-  type: REQUEST_EDIT_RECORD,
+  type: REQUEST_EDIT_RECORD
 })
 
 export const requestDeleteRecord = () => ({
-  type: REQUEST_DELETE_RECORD,
+  type: REQUEST_DELETE_RECORD
 })
 
 export const requestLogin = creds => ({

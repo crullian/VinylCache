@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from "react"
 
-export default class Record extends Component {
-
-  static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired
-  }  
+export default class Record extends Component { 
 
   static defaultState() { 
     return {
@@ -45,17 +41,17 @@ export default class Record extends Component {
   }
 
   render() {
-    const { artist, title, year, imgUrl, isAuthenticated } = this.props
+    const { artist, title, year, imgUrl } = this.props
 
     let editForm = null;
     let buttonText = 'Edit';
     if (this.state.isEditing) {
       editForm = (
         <form id="editForm">
-          <input id="artist" defaultValue={this.props.artist} onChange={e => this.setState({artist: e.target.value})}/><br />
-          <input id="title"  defaultValue={this.props.title}  onChange={e => this.setState({title: e.target.value})}/><br />
-          <input id="imgUrl" defaultValue={this.props.imgUrl} onChange={e => this.setState({imgUrl: e.target.value})}/><br />
-          <input id="year" defaultValue={this.props.year} onChange={e => this.setState({year: e.target.value})}/><br />
+          <input id="artist" defaultValue={artist} onChange={e => this.setState({artist: e.target.value})}/><br />
+          <input id="title"  defaultValue={title}  onChange={e => this.setState({title: e.target.value})}/><br />
+          <input id="imgUrl" defaultValue={imgUrl} onChange={e => this.setState({imgUrl: e.target.value})}/><br />
+          <input id="year"   defaultValue={year}   onChange={e => this.setState({year: e.target.value})}/><br />
           <div className="btn btn-info update" onClick={this.handleUpdate.bind(this)}>Submit edits</div>
           <div className="btn btn-danger" onClick={this.handleDelete.bind(this)}>Remove</div>
         </form>

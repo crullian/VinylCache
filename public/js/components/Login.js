@@ -12,6 +12,9 @@ class Login extends Component {
     const username = this.refs.username
     const password = this.refs.password
     const creds = { username: username.value.trim(), password: password.value.trim() }
+    if(!creds.username || !creds.password) {
+      return;
+    }
     this.props.onLoginClick(creds)
   } 
 
@@ -19,10 +22,10 @@ class Login extends Component {
     const { errorMessage } = this.props
 
     return (
-      <form className="navbar-form pull-right">
-        <input type='text' ref='username' className="form-control" placeholder='Username'/>
-        <input type='text' ref='password' className="form-control" placeholder='Password'/>
-        <button onClick={this.handleClick.bind(this)} className="btn btn-primary">
+      <form className="navbar-form pull-right" name="loginSubmit" onSubmit={this.handleClick.bind(this)}>
+        <input type='text' required ref='username' className="form-control" placeholder='Username'/>
+        <input type='password' required ref='password' className="form-control" placeholder='Password'/>
+        <button className="btn btn-info" type="submit" value="Post">
           Login
         </button>
 

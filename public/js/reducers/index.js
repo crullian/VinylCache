@@ -8,16 +8,18 @@ import { REQUEST_RECORDS,
          LOGIN_FAILURE, 
          LOGOUT_SUCCESS } from '../actions'
 
-const recordsReducer = (state = {records:[]}, action) => {
+const recordsReducer = (state = {records:[], isFetchingRecords: false}, action) => {
   switch (action.type) {
     case REQUEST_RECORDS:
       return {
-        ...state
+        ...state,
+        isFetchingRecords: action.isFetchingRecords
       }
     case RECEIVE_RECORDS:
       return {
         ...state,
-        records: action.records
+        records: action.records,
+        isFetchingRecords: action.isFetchingRecords
       }
     default:
       return state

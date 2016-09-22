@@ -15,7 +15,7 @@ class Logout extends Component {
     
     return(
       <form className="navbar-form pull-right">
-        <button onClick={this.logOut.bind(this)} className="btn btn-primary">
+        <button onClick={this.logOut.bind(this)} className="btn btn-info">
           Logout
         </button>
       </form>

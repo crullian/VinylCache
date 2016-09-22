@@ -10,6 +10,7 @@ import RecordForm from '../components/RecordForm.js'
 
 @connect(state => ({
   records: state.recordsReducer.records,
+  isFetchingRecords: state.recordsReducer.isFetchingRecords,
   isAuthenticated: state.authReducer.isAuthenticated,
   errorMessage: state.authReducer.errorMessage
 }))
@@ -24,6 +25,7 @@ class RecordApp extends Component {
     records: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
+    isFetchingRecords: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string
   }
   
@@ -52,7 +54,7 @@ class RecordApp extends Component {
   }
 
   render() {
-    const { dispatch, records, isAuthenticated, errorMessage } = this.props
+    const { dispatch, records, isAuthenticated, errorMessage, isFetchingRecords } = this.props
     return (
       <div>
         <NavBar setSearchInput={ this.handleUserInput.bind(this) }
@@ -71,7 +73,8 @@ class RecordApp extends Component {
                         delete={ this.deleteRecord.bind(this) }
                         update={ this.updateRecord.bind(this) }
                         filterText={this.state.filterText}
-                        isAuthenticated={ isAuthenticated } />
+                        isAuthenticated={ isAuthenticated }
+                        isFetchingRecords={ isFetchingRecords } />
           </div>
         </div>
       </div>

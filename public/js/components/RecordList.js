@@ -6,7 +6,8 @@ export default class RecordList extends Component {
   static propTypes = {
     records: PropTypes.array.isRequired,
     filterText: PropTypes.string,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool.isRequired,
+    isFetchingRecords: PropTypes.bool.isRequired
   }
 
   handleDelete(recordId) {
@@ -18,10 +19,10 @@ export default class RecordList extends Component {
   }
 
   render() {
-    const { records, filterText, isAuthenticated } = this.props
+    const { records, filterText, isAuthenticated, isFetchingRecords } = this.props
 
     let loader = null;
-    if (!records && !records.length){
+    if (isFetchingRecords) {
       loader = (
         <div className="loader">
           <img src="../images/loader.svg" />
@@ -30,8 +31,7 @@ export default class RecordList extends Component {
     }
 
     let recordList = null;
-    if (records) {
-      console.log('RECORDS', records);
+    if (!isFetchingRecords && records) {
 
       let searchString = filterText.toLowerCase().replace(/\W/g, '');
       recordList = records.filter(record => {

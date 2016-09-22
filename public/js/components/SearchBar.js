@@ -1,8 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react"
+import ReactDOM from "react-dom"
 
-export default class SearchBar extends React.Component {
-  handleChange() {
+export default class SearchBar extends Component {
+  handleChange(e) {
+    e.preventDefault()
     this.props.onUserInput(
       ReactDOM.findDOMNode(this.refs.filterTextInput).value
     );

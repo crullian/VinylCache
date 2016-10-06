@@ -1,13 +1,23 @@
 import React, { Component, PropTypes } from "react"
 import Record from "./Record.js"
 
-export default class RecordList extends Component {
+class RecordList extends Component {
 
   static propTypes = {
     records: PropTypes.array.isRequired,
     filterText: PropTypes.string,
     isAuthenticated: PropTypes.bool.isRequired,
     isFetchingRecords: PropTypes.bool.isRequired
+  }
+
+  state = {
+    filteredResult: null
+  }
+
+  componentWillReceiveProps(e) {
+    if (e.filterText) {
+      console.log('OK!', e);
+    }
   }
 
   handleDelete(recordId) {
@@ -20,6 +30,7 @@ export default class RecordList extends Component {
 
   render() {
     const { records, filterText, isAuthenticated, isFetchingRecords } = this.props
+    const { filteredResult } = this.state
 
     let loader = null;
     if (isFetchingRecords) {
@@ -31,13 +42,19 @@ export default class RecordList extends Component {
     }
 
     let recordList = null;
+
     if (!isFetchingRecords && records) {
+      recordList = filteredResult ? filteredResult : records;
+
+      console.log('RECORDLIST', recordList);
 
       let searchString = filterText.toLowerCase().replace(/\W/g, '');
-      recordList = records.filter(record => {
-        let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
-        return strTofind.indexOf(searchString) !== -1;
-      }).map((record, index) => {
+
+      //.filter(record => {
+      //  let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
+      //  return strTofind.indexOf(searchString) !== -1;
+      //})
+      records.map((record, index) => {
         return (
           <Record artist={ record.artist } 
                   title={ record.title } 
@@ -60,3 +77,5 @@ export default class RecordList extends Component {
     );
   }
 }
+
+export default RecordList

@@ -76,7 +76,6 @@ export const errorLogout = () => ({
 })
 
 export const fetchRecords = () => dispatch => {
-  console.log('CALLING FETCH');
   dispatch(requestRecords())
   return fetch(`/records`, {
     method:'get',
@@ -140,7 +139,6 @@ export const removeRecord = id => dispatch => {
 }
 
 export const editRecord = record => dispatch => {
-  console.log('CALLING EDIT');
   dispatch(requestEditRecord())
   return fetch(`/records/${record.id}`, {
     method: 'put',

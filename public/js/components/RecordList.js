@@ -1,7 +1,16 @@
 import React, { Component, PropTypes } from "react"
 import Record from "./Record.js"
+import { isEqual } from "lodash"
 
 class RecordList extends Component {
+  
+  static defaultState() {
+    return {
+      filteredResult: null
+    }
+  };
+
+  state = RecordList.defaultState();
 
   static propTypes = {
     records: PropTypes.array.isRequired,
@@ -10,13 +19,20 @@ class RecordList extends Component {
     isFetchingRecords: PropTypes.bool.isRequired
   }
 
-  state = {
-    filteredResult: null
-  }
 
   componentWillReceiveProps(e) {
     if (e.filterText) {
-      console.log('OK!', e);
+      this.setState(() => {
+        return {
+          filteredResult: e.records.filter(record => {
+              let searchString = e.filterText.toLowerCase().replace(/\W/g, '');
+              let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
+              return strTofind.indexOf(searchString) !== -1;
+          })
+        }
+      })
+    } else {
+      this.setState(RecordList.defaultState());
     }
   }
 
@@ -29,7 +45,8 @@ class RecordList extends Component {
   }
 
   render() {
-    const { records, filterText, isAuthenticated, isFetchingRecords } = this.props
+    console.debug('filteredResult', this.state.filteredResult);
+    const { records, isAuthenticated, isFetchingRecords } = this.props
     const { filteredResult } = this.state
 
     let loader = null;
@@ -42,19 +59,11 @@ class RecordList extends Component {
     }
 
     let recordList = null;
-
+    
     if (!isFetchingRecords && records) {
-      recordList = filteredResult ? filteredResult : records;
+      let dumbRecords = this.state.filteredResult ? this.state.filteredResult : records
 
-      console.log('RECORDLIST', recordList);
-
-      let searchString = filterText.toLowerCase().replace(/\W/g, '');
-
-      //.filter(record => {
-      //  let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
-      //  return strTofind.indexOf(searchString) !== -1;
-      //})
-      records.map((record, index) => {
+      recordList = dumbRecords.map((record, index) => {
         return (
           <Record artist={ record.artist } 
                   title={ record.title } 

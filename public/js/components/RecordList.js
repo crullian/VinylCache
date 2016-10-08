@@ -62,7 +62,7 @@ class RecordList extends Component {
       if (filteredResult && !filteredResult.length) {
         recordList = (
           <div>
-            <h3>Sorry, you don\'t have any{ filterText }</h3>
+            <h3>Sorry, you don't have any{ filterText }</h3>
           </div>
         )
       } else {

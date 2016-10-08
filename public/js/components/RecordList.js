@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from "react"
 import Record from "./Record.js"
-import { isEqual } from "lodash"
 
 class RecordList extends Component {
   
@@ -25,8 +24,8 @@ class RecordList extends Component {
       this.setState(() => {
         return {
           filteredResult: e.records.filter(record => {
-              let searchString = e.filterText.toLowerCase().replace(/\W/g, '');
-              let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year).replace(/\W/g, '');
+              let searchString = e.filterText.toLowerCase();
+              let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year);
               return strTofind.indexOf(searchString) !== -1;
           })
         }
@@ -45,42 +44,48 @@ class RecordList extends Component {
   }
 
   render() {
-    console.debug('filteredResult', this.state.filteredResult);
-    const { records, isAuthenticated, isFetchingRecords } = this.props
+    const { records, isAuthenticated, isFetchingRecords, filterText } = this.props
     const { filteredResult } = this.state
 
-    let loader = null;
+    let recordList = null;
+
     if (isFetchingRecords) {
-      loader = (
+      recordList = (
         <div className="loader">
           <img src="../images/loader.svg" />
         </div>
       );
     }
-
-    let recordList = null;
     
     if (!isFetchingRecords && records) {
-      let dumbRecords = this.state.filteredResult ? this.state.filteredResult : records
+      let dumbRecords = filteredResult ? filteredResult : records
 
-      recordList = dumbRecords.map((record, index) => {
-        return (
-          <Record artist={ record.artist } 
-                  title={ record.title } 
-                  imgUrl={ record.imgUrl } 
-                  year={ record.year }
-                  id={record._id}
-                  onDelete={ this.handleDelete.bind(this) } 
-                  onUpdate={ this.handleUpdate.bind(this) }
-                  isAuthenticated={ isAuthenticated }
-                  key={ index } />
-        );
-      });
+      if (filteredResult && !filteredResult.length) {
+        recordList = (
+          <div>
+            <h3>Sorry, you don't have any{ filterText }</h3>
+          </div>
+        )
+      } else {
+
+        recordList = dumbRecords.map((record, index) => {
+          return (
+            <Record artist={ record.artist } 
+                    title={ record.title } 
+                    imgUrl={ record.imgUrl } 
+                    year={ record.year }
+                    id={record._id}
+                    onDelete={ this.handleDelete.bind(this) } 
+                    onUpdate={ this.handleUpdate.bind(this) }
+                    isAuthenticated={ isAuthenticated }
+                    key={ index } />
+          );
+        });
+      }
     }
     
     return (
       <div>
-        { loader }
         { recordList }
       </div>
     );

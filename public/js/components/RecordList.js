@@ -25,7 +25,6 @@ class RecordList extends Component {
           filteredResult: e.records.filter(record => {
               let searchString = e.filterText.toLowerCase().trim();
               let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year);
-              console.debug('searchString', searchString, 'strTofind', strTofind);
               return strTofind.indexOf(searchString) !== -1;
           })
         }

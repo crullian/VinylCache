@@ -26,9 +26,13 @@ const recordsReducer = (state = {records:[], isFetchingRecords: false}, action) 
   }
 }
 
+const checkExp = () => {
+  return JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).exp > new Date() ? true : false;
+}
+
 const authReducer = (state = {
     isFetching: true,
-    isAuthenticated: localStorage.getItem('id_token') ? true : false
+    isAuthenticated: checkExp()
     // TODO: check if token is expired or not!
   }, action) => {
   switch (action.type) {

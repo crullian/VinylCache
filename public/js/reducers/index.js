@@ -27,13 +27,16 @@ const recordsReducer = (state = {records:[], isFetchingRecords: false}, action) 
 }
 
 const checkExp = () => {
-  return JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).exp > new Date() ? true : false;
+  let token = localStorage.getItem('id_token');
+  if (!token) {
+    return false;
+  }
+  return JSON.parse(atob(token.split('.')[1])).exp < Date.now() ? true : false;
 }
 
 const authReducer = (state = {
     isFetching: true,
     isAuthenticated: checkExp()
-    // TODO: check if token is expired or not!
   }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:

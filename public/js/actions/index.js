@@ -173,7 +173,6 @@ export const loginUser = creds => dispatch => {
   .then(response => 
      response.json().then(user => ({ user, response })))
   .then(({ user, response }) => {
-    console.log('RESPONSE IS', user, response);
     if (!response.ok) {
       dispatch(errorLogin(user.message))
       return Promise.reject(user)

@@ -15,26 +15,26 @@ var UserModel = require('./models/user_model');
 
 var secret = require(path.join(__dirname, './env')).SESSION_SECRET;
 
-var compare = function(a,b) {
-  if (a.artist && b.artist) {
-    var a_artist = a.artist.replace('The ', '');
-    var b_artist = b.artist.replace('The ', '');
-    if (a_artist < b_artist) {
-      return -1;
-    } else if (a_artist > b_artist) {
-      return 1;
-    }
-    if (a.year < b.year) {
-      return -1;
-    } else if (a.year > b.year) {
-      return 1;
-    } else {
-      return 0;
-    }
-  } else {
-    return;
-  }
-}
+// var compare = function(a,b) {
+//   if (a.artist && b.artist) {
+//     var a_artist = a.artist.replace('The ', '');
+//     var b_artist = b.artist.replace('The ', '');
+//     if (a_artist < b_artist) {
+//       return -1;
+//     } else if (a_artist > b_artist) {
+//       return 1;
+//     }
+//     if (a.year < b.year) {
+//       return -1;
+//     } else if (a.year > b.year) {
+//       return 1;
+//     } else {
+//       return 0;
+//     }
+//   } else {
+//     return;
+//   }
+// }
 
 app.set('superSecret', secret)
 
@@ -74,7 +74,7 @@ app.get('/records', function(req, res) {
   req.query.year ? modelParams.year = req.query.year : null;
   RecordModel.find(modelParams).then(function(records) {
     setTimeout(function() {
-      res.send(records.sort(compare));
+      res.send(records);
     }, Math.random() * 3000);
   });
 });
@@ -139,17 +139,19 @@ app.post('/records', function(req, res) {
   RecordModel.create(recordData).then(function(record) {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records.sort(compare));   
+    return res.send(records);   
   }).catch(console.log.bind(console));
 })
 
 app.put('/records/:id', function(req, res) {
-  RecordModel.findById(req.params.id).exec().then(function(record) {
+  var id = req.params.id;
+  RecordModel.findById(id).exec().then(function(record) {
     return record.update(req.body); // .save isn't necessary here
   }).then(function() {
-    return RecordModel.find({});
-  }).then(function(records) {
-    return res.send(records.sort(compare));
+    return RecordModel.findById(id);
+  }).then(function(record) {
+    console.log(record);
+    return res.send(record);
   }).catch(console.log.bind(console));
 })
 
@@ -159,7 +161,7 @@ app.delete('/records/:id', function(req, res) {
   }).then(function() {
     return RecordModel.find({});
   }).then(function(records) {
-    return res.send(records.sort(compare));
+    return res.send(records);
   }).catch(console.log.bind(console));
 })
 

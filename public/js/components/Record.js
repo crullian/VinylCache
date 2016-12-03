@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react"
 
-export default class Record extends Component { 
+class Record extends Component { 
 
   static defaultState() { 
     return {
@@ -81,3 +81,5 @@ export default class Record extends Component {
     )
   }
 }
+
+export default Record

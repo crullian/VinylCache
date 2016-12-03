@@ -22,7 +22,7 @@ class RecordApp extends Component {
   };
 
   static propTypes = {
-    records: PropTypes.array.isRequired,
+    records: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     isFetchingRecords: PropTypes.bool.isRequired,

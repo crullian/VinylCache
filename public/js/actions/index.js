@@ -92,7 +92,10 @@ export const fetchRecords = () => dispatch => {
         console.error(`Network response was not ok: ${response}`)
       }
     })
-    .then(json => dispatch(receiveRecords(json)))
+    .then((json) => { 
+      console.log('JSON', json);
+      return dispatch(receiveRecords(json))
+    })
     .catch(error => console.error(`There was a problem with your fetch operation: ${error.message}`))
 }
 

@@ -8,7 +8,8 @@ import { REQUEST_RECORDS,
          LOGIN_FAILURE, 
          LOGOUT_SUCCESS } from '../actions'
 
-const recordsReducer = (state = {records:[], isFetchingRecords: false}, action) => {
+const recordsReducer = (state = {records:{}, isFetchingRecords: false}, action) => {
+  console.log('ACTION', action);
   switch (action.type) {
     case REQUEST_RECORDS:
       return {
@@ -18,7 +19,15 @@ const recordsReducer = (state = {records:[], isFetchingRecords: false}, action) 
     case RECEIVE_RECORDS:
       return {
         ...state,
-        records: action.records,
+        records: action.records.reduce(function(result, item) {
+          result[item._id] = {};
+          result[item._id].record = {};
+          result[item._id].record.artist = item.artist;
+          result[item._id].record.title = item.title;
+          result[item._id].record.imgUrl = item.imgUrl;
+          result[item._id].record.year = item.year;
+          return result;
+        }, {}),
         isFetchingRecords: action.isFetchingRecords
       }
     default:

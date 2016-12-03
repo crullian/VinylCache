@@ -12,7 +12,7 @@ class RecordList extends Component {
   state = RecordList.defaultState();
 
   static propTypes = {
-    records: PropTypes.array.isRequired,
+    records: PropTypes.object.isRequired,
     filterText: PropTypes.string,
     isAuthenticated: PropTypes.bool.isRequired,
     isFetchingRecords: PropTypes.bool.isRequired
@@ -34,6 +34,27 @@ class RecordList extends Component {
     }
   }
 
+  compare(a,b) {
+   if (a.artist && b.artist) {
+     let a_artist = a.artist.replace('The ', '');
+     let b_artist = b.artist.replace('The ', '');
+     if (a_artist < b_artist) {
+       return -1;
+     } else if (a_artist > b_artist) {
+       return 1;
+     }
+     if (a.year < b.year) {
+       return -1;
+     } else if (a.year > b.year) {
+       return 1;
+     } else {
+       return 0;
+     }
+   } else {
+     return;
+   }
+  }
+
   handleDelete(recordId) {
     return this.props.delete(recordId);
   }
@@ -46,6 +67,7 @@ class RecordList extends Component {
     const { records, isAuthenticated, isFetchingRecords, filterText } = this.props
     const { filteredResult } = this.state
 
+    console.debug('RECORDS', records);
     let recordList = null;
 
     if (isFetchingRecords) {
@@ -56,8 +78,8 @@ class RecordList extends Component {
       );
     }
     
-    if (!isFetchingRecords && records) {
-      let dumbRecords = filteredResult ? filteredResult : records
+    // if (!isFetchingRecords && records) {
+    //   let dumbRecords = filteredResult ? filteredResult : records
 
       if (filteredResult && !filteredResult.length) {
         recordList = (
@@ -67,7 +89,10 @@ class RecordList extends Component {
         )
       } else {
 
-        recordList = dumbRecords.map((record, index) => {
+        // recordList = dumbRecords.sort(this.compare)
+        recordList = Object.keys(records).map((key, index) => {
+          const record = records[key].record;
+        //.map((record, index) => {
           return (
             <Record artist={ record.artist } 
                     title={ record.title } 
@@ -80,7 +105,7 @@ class RecordList extends Component {
                     key={ index } />
           );
         });
-      }
+    //   }
     }
     
     return (

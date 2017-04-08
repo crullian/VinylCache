@@ -22,7 +22,8 @@ class RecordList extends Component {
     if (e.filterText) {
       this.setState(() => {
         return {
-          filteredResult: e.records.filter(record => {
+          filteredResult: Object.keys(e.records).filter((key, index) => {
+              let record = e.records[key];
               let searchString = e.filterText.toLowerCase().trim();
               let strTofind = record.artist.toLowerCase().concat(' ', record.title.toLowerCase()).concat(' ', record.year);
               return strTofind.indexOf(searchString) !== -1;
@@ -34,26 +35,26 @@ class RecordList extends Component {
     }
   }
 
-  compare(a,b) {
-   if (a.artist && b.artist) {
-     let a_artist = a.artist.replace('The ', '');
-     let b_artist = b.artist.replace('The ', '');
-     if (a_artist < b_artist) {
-       return -1;
-     } else if (a_artist > b_artist) {
-       return 1;
-     }
-     if (a.year < b.year) {
-       return -1;
-     } else if (a.year > b.year) {
-       return 1;
-     } else {
-       return 0;
-     }
-   } else {
-     return;
-   }
-  }
+  // compare(a,b) {
+  //  if (dumbRecords[a].artist && dumbRecords[b].artist) {
+  //    let a_artist = dumbRecords[a].artist.replace('The ', '');
+  //    let b_artist = dumbRecords[b].artist.replace('The ', '');
+  //    if (a_artist < b_artist) {
+  //      return -1;
+  //    } else if (a_artist > b_artist) {
+  //      return 1;
+  //    }
+  //    if (dumbRecords[a].year < dumbRecords[b].year) {
+  //      return -1;
+  //    } else if (dumbRecords[a].year > dumbRecords[b].year) {
+  //      return 1;
+  //    } else {
+  //      return 0;
+  //    }
+  //  } else {
+  //    return;
+  //  }
+  // }
 
   handleDelete(recordId) {
     return this.props.delete(recordId);
@@ -67,7 +68,6 @@ class RecordList extends Component {
     const { records, isAuthenticated, isFetchingRecords, filterText } = this.props
     const { filteredResult } = this.state
 
-    console.debug('RECORDS', records);
     let recordList = null;
 
     if (isFetchingRecords) {
@@ -78,8 +78,9 @@ class RecordList extends Component {
       );
     }
     
-    // if (!isFetchingRecords && records) {
-    //   let dumbRecords = filteredResult ? filteredResult : records
+    if (!isFetchingRecords && records) {
+      let dumbRecords = filteredResult ? filteredResult : records
+      // console.debug('DUMB', dumbRecords);
 
       if (filteredResult && !filteredResult.length) {
         recordList = (
@@ -88,11 +89,30 @@ class RecordList extends Component {
           </div>
         )
       } else {
-
-        // recordList = dumbRecords.sort(this.compare)
-        recordList = Object.keys(records).map((key, index) => {
-          const record = records[key].record;
-        //.map((record, index) => {
+        let sorted = Object.keys(dumbRecords)
+        // .sort((a,b) => {
+        //  if (dumbRecords[a].artist && dumbRecords[b].artist) {
+        //    let a_artist = dumbRecords[a].artist.replace('The ', '');
+        //    let b_artist = dumbRecords[b].artist.replace('The ', '');
+        //    if (a_artist < b_artist) {
+        //      return -1;
+        //    } else if (a_artist > b_artist) {
+        //      return 1;
+        //    }
+        //    if (dumbRecords[a].year < dumbRecords[b].year) {
+        //      return -1;
+        //    } else if (dumbRecords[a].year > dumbRecords[b].year) {
+        //      return 1;
+        //    } else {
+        //      return 0;
+        //    }
+        //  } else {
+        //    return;
+        //  }
+        // });
+        console.log('SORTED?', sorted);
+        recordList = sorted.map((key, index) => {
+          const record = records[key];
           return (
             <Record artist={ record.artist } 
                     title={ record.title } 
@@ -105,7 +125,7 @@ class RecordList extends Component {
                     key={ index } />
           );
         });
-    //   }
+      }
     }
     
     return (

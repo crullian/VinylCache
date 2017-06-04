@@ -14,13 +14,13 @@ export default class Record extends Component {
 
   state = Record.defaultState()
 
-  showEdit(e) {
+  toggleEdit = (e) => {
     this.setState({
-      isEditing: (this.state.isEditing ? false : true)
+      isEditing: !this.state.isEditing
     });
   }
 
-  handleUpdate(e) {
+  handleUpdate = (e) => {
     e.preventDefault();
     let record = {
       'artist': this.state.artist ? this.state.artist : this.props.artist,
@@ -33,7 +33,7 @@ export default class Record extends Component {
     return this.props.onUpdate(record);
   }
 
-  handleDelete(e) {
+  handleDelete = (e) => {
     e.preventDefault();
     let recordId = this.props.id;
     this.setState({isEditing: false});
@@ -52,8 +52,8 @@ export default class Record extends Component {
           <input id="title"  defaultValue={title}  onChange={e => this.setState({title: e.target.value})}/><br />
           <input id="imgUrl" defaultValue={imgUrl} onChange={e => this.setState({imgUrl: e.target.value})}/><br />
           <input id="year"   defaultValue={year}   onChange={e => this.setState({year: e.target.value})}/><br />
-          <div className="btn btn-info update" onClick={this.handleUpdate.bind(this)}>Submit edits</div>
-          <div className="btn btn-danger" onClick={this.handleDelete.bind(this)}>Remove</div>
+          <div className="btn btn-info update" onClick={this.handleUpdate}>Submit edits</div>
+          <div className="btn btn-danger" onClick={this.handleDelete}>Remove</div>
         </form>
       );
       buttonText = 'Close';
@@ -72,7 +72,7 @@ export default class Record extends Component {
           <h5>
             { year }
           </h5>
-          <div className="btn btn-default edit" onClick={this.showEdit.bind(this)}>{buttonText}</div>
+          <div className="btn btn-default edit" onClick={this.toggleEdit}>{buttonText}</div>
           { editForm }
         </div>
       </div>

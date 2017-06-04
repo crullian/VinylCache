@@ -52,10 +52,10 @@ export default class AddRecordDialog extends React.Component {
           contentStyle={{maxWidth: 450}}
           onRequestClose={this.props.requestClose}
         >
-          <TextField type="text" hintText="artist" autoFocus onChange={e => this.setState({artist: e.target.value})}/><br />
-          <TextField type="text" hintText="title" onChange={e => this.setState({title: e.target.value})}/><br />
-          <TextField type="text" hintText="image url" onChange={e => this.setState({imgUrl: e.target.value})}/><br />
-          <TextField type="text" hintText="year" onChange={e => this.setState({year: e.target.value})}/><br />
+          <TextField type="text" hintText="artist" style={{width: '100%'}} autoFocus onChange={e => this.setState({artist: e.target.value})}/><br />
+          <TextField type="text" hintText="title" style={{width: '100%'}} onChange={e => this.setState({title: e.target.value})}/><br />
+          <TextField type="text" hintText="image url" style={{width: '100%'}} onChange={e => this.setState({imgUrl: e.target.value})}/><br />
+          <TextField type="text" hintText="year" style={{width: '100%'}} onChange={e => this.setState({year: e.target.value})}/><br />
         </Dialog>
     )
   }

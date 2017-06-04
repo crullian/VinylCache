@@ -6,7 +6,19 @@ import { fetchRecords,
          removeRecord } from '../actions'
 import NavBar from '../components/NavBar.js'
 import RecordList from '../components/RecordList.js'
-import RecordForm from '../components/RecordForm.js'
+import AddRecordDialog from '../components/AddRecordDialog.js'
+
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+
+const fabStyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+};
 
 @connect(state => ({
   records: state.recordsReducer.records,
@@ -18,7 +30,8 @@ import RecordForm from '../components/RecordForm.js'
 class RecordApp extends Component {
 
   state = {
-    filterText: ''
+    filterText: '',
+    addRecordDialogIsOpen: false
   };
 
   static propTypes = {
@@ -33,50 +46,67 @@ class RecordApp extends Component {
     this.props.dispatch(fetchRecords()) 
   }
 
-  handleRecordSubmit(record) {
-    this.props.dispatch(submitRecord(record))
+  toggleAddRecordDialog = () => {
+    this.setState({addRecordDialogIsOpen: !this.state.addRecordDialogIsOpen})
   }
 
-  updateRecord(record) {
+  handleRecordSubmit = (record) => {
+    this.props.dispatch(submitRecord(record));
+    this.toggleAddRecordDialog();
+  }
+
+  updateRecord = (record) => {
     this.props.dispatch(editRecord(record))
   }
 
-  deleteRecord(id) {
+  deleteRecord = (id) => {
     if(confirm('Are you sure you want to delete this record?')) {
       this.props.dispatch(removeRecord(id))
     }
   }
 
-  handleUserInput(filterText) {
+  handleUserInput = (filterText) => {
     this.setState({
       filterText: filterText
     });
   }
 
   render() {
+    console.log('dialog is open?', this.state.addRecordDialogIsOpen)
     const { dispatch, records, isAuthenticated, errorMessage, isFetchingRecords } = this.props
     return (
       <div>
-        <NavBar setSearchInput={ this.handleUserInput.bind(this) }
+        <NavBar setSearchInput={ this.handleUserInput }
                 isAuthenticated={ isAuthenticated }
                 errorMessage={ errorMessage }
                 dispatch={ dispatch } />
 
-        <div className="row">
+        <div className="row main-content">
 
-          <div className="col-md-4">
-            <RecordForm onRecordSubmit={ this.handleRecordSubmit.bind(this) } />
-          </div>
+          {/*<div className="col-md-4 list">
+            <RecordForm onRecordSubmit={ this.handleRecordSubmit } />
+          </div>*/}
 
           <div className="col-md-8 list">
             <RecordList records={ records } 
-                        delete={ this.deleteRecord.bind(this) }
-                        update={ this.updateRecord.bind(this) }
+                        delete={ this.deleteRecord }
+                        update={ this.updateRecord }
                         filterText={this.state.filterText}
                         isAuthenticated={ isAuthenticated }
                         isFetchingRecords={ isFetchingRecords } />
           </div>
         </div>
+        <FloatingActionButton
+          style={fabStyle}
+          onTouchTap={this.toggleAddRecordDialog}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+        <AddRecordDialog
+          isOpen={this.state.addRecordDialogIsOpen}
+          requestClose={this.toggleAddRecordDialog}
+          onRecordSubmit={this.handleRecordSubmit}
+        />
       </div>
     );
   }

@@ -1,25 +1,21 @@
 import React, { Component } from "react"
-import ReactDOM from "react-dom"
+import TextField from 'material-ui/TextField'
 
 export default class SearchBar extends Component {
   handleChange(e) {
-    e.preventDefault()
-    this.props.onUserInput(
-      ReactDOM.findDOMNode(this.refs.filterTextInput).value
-    );
+    this.props.onUserInput(e.target.value);
   }
   render() {
     return (
-      <form className="navbar-form navbar-right">
-        <input
+        <TextField
           type="text"
-          className="form-control"
-          placeholder="Search..."
-          ref="filterTextInput"
+          hintText="Search..."
+          hintStyle={{color: '#fff'}}
+          inputStyle={{color: '#fff'}}
+          style={{width: 200}}
           onChange={this.handleChange.bind(this)}
           autoFocus
         />
-      </form>
     );
   }
 }

@@ -1,16 +1,16 @@
 * {
   box-sizing: border-box;
-  padding: 5px;
 }
 
 body {
-  font-family: "Lucida Grande";
+  font-family: 'Roboto', sans-serif;
   background-color: #EFEFEF;
+  margin: 0;
 }
 
-.navbar-default {
-  background-color: rgba(248, 248, 248, 0.96);
-}
+// .navbar-default {
+//   background-color: rgba(248, 248, 248, 0.96);
+// }
 
 h3, h4 {
   margin-top: 0;
@@ -26,13 +26,16 @@ h5 {
   margin-left: 15%;
 }
 
+.main-content {
+  padding-top: 64px;
+}
+
 .list {
   padding-top: 50px;
 }
 
 .record {
   padding-bottom: 5px;
-  /*width: 93%;*/
   height: 350px;
   margin-bottom: 25px;
 }
@@ -51,10 +54,10 @@ h5 {
   float: left;
 }
 
-input {
-  padding: 5px;
-  width: 80%;
-}
+// input {
+//   padding: 5px;
+//   width: 80%;
+// }
 
 .addForm {
   position: fixed;
@@ -74,8 +77,8 @@ input {
 }
 
 #editForm {
-  /*height: 150px;
-  width: 248px;*/
+  height: 150px;
+  width: 248px;
 }
 
 #editForm input {
@@ -88,18 +91,18 @@ input {
 
 @media screen and (max-width: 992px) {
   
-  .navbar-default {
-    background-color: rgba(68, 66, 66, 0.98);
-  }
+//   .navbar-default {
+//     background-color: rgba(68, 66, 66, 0.98);
+//   }
 
-  .navbar-default .navbar-brand {
-    color: #cacaca;
-  }
+//   .navbar-default .navbar-brand {
+//     color: #cacaca;
+//   }
 
-  .navbar-form {
-    border: none;
-    box-shadow: none;
-  }
+//   .navbar-form {
+//     border: none;
+//     box-shadow: none;
+//   }
 
   h1 {
     font-size: 25px;
@@ -125,7 +128,7 @@ input {
   }
 
   .record {
-    margin: auto 30px;
+    margin: 30px 25px;
   }
 
   .album {
@@ -133,10 +136,8 @@ input {
     height: 250px;
   }
 }
+
 @media screen and (max-width: 450px) {
-  .record {
-    height: initial;
-  }
   .loader {
     margin-left: 35%;
   }

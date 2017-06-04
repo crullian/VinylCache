@@ -61,23 +61,24 @@ class RecordList extends Component {
 
       if (filteredResult && !filteredResult.length) {
         recordList = (
-          <div>
-            <h3>Sorry, you don't have any{ filterText }</h3>
+          <div style={{marginLeft: 25}}>
+            <h3>Sorry, you don't have any { filterText }</h3>
           </div>
         )
       } else {
 
         recordList = dumbRecords.map((record, index) => {
           return (
-            <Record artist={ record.artist } 
-                    title={ record.title } 
-                    imgUrl={ record.imgUrl } 
-                    year={ record.year }
-                    id={record._id}
-                    onDelete={ this.handleDelete.bind(this) } 
-                    onUpdate={ this.handleUpdate.bind(this) }
-                    isAuthenticated={ isAuthenticated }
-                    key={ index } />
+            <Record
+              artist={ record.artist } 
+              title={ record.title } 
+              imgUrl={ record.imgUrl } 
+              year={ record.year }
+              id={record._id}
+              onDelete={ this.handleDelete.bind(this) } 
+              onUpdate={ this.handleUpdate.bind(this) }
+              isAuthenticated={ isAuthenticated }
+              key={ index } />
           );
         });
       }

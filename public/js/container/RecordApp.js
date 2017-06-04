@@ -76,28 +76,26 @@ class RecordApp extends Component {
     const { dispatch, records, isAuthenticated, errorMessage, isFetchingRecords } = this.props
     return (
       <div>
-        <NavBar setSearchInput={ this.handleUserInput }
-                isAuthenticated={ isAuthenticated }
-                errorMessage={ errorMessage }
-                dispatch={ dispatch } />
+        <NavBar
+          setSearchInput={ this.handleUserInput }
+          isAuthenticated={ isAuthenticated }
+          errorMessage={ errorMessage }
+          dispatch={ dispatch }
+        />
 
-        <div className="row main-content">
-
-          {/*<div className="col-md-4 list">
-            <RecordForm onRecordSubmit={ this.handleRecordSubmit } />
-          </div>*/}
-
-          <div className="col-md-8 list">
-            <RecordList records={ records } 
-                        delete={ this.deleteRecord }
-                        update={ this.updateRecord }
-                        filterText={this.state.filterText}
-                        isAuthenticated={ isAuthenticated }
-                        isFetchingRecords={ isFetchingRecords } />
-          </div>
+        <div className="main-content">
+          <RecordList
+            records={ records } 
+            delete={ this.deleteRecord }
+            update={ this.updateRecord }
+            filterText={this.state.filterText}
+            isAuthenticated={ isAuthenticated }
+            isFetchingRecords={ isFetchingRecords }
+          />
         </div>
         <FloatingActionButton
           style={fabStyle}
+          secondary={true}
           onTouchTap={this.toggleAddRecordDialog}
         >
           <ContentAdd />

@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import TextField from 'material-ui/TextField'
+import {deepPurple400} from 'material-ui/styles/colors'
 
 export default class SearchBar extends Component {
-  handleChange(e) {
+  handleChange = (e) => {
     this.props.onUserInput(e.target.value);
   }
   render() {
@@ -10,10 +11,11 @@ export default class SearchBar extends Component {
         <TextField
           type="text"
           hintText="Search..."
-          hintStyle={{color: '#fff'}}
-          inputStyle={{color: '#fff'}}
+          hintStyle={{color: deepPurple400}}
           style={{width: 200}}
-          onChange={this.handleChange.bind(this)}
+          underlineStyle={{borderColor: '#fff'}}
+          underlineFocusStyle={{borderColor: deepPurple400}}
+          onChange={this.handleChange}
           autoFocus
         />
     );

@@ -2,6 +2,7 @@ import React from "react"
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
+import {deepPurple400} from 'material-ui/styles/colors'
 
 export default class AddRecordDialog extends React.Component {
 
@@ -34,18 +35,19 @@ export default class AddRecordDialog extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        secondary={true}
         onTouchTap={this.props.requestClose}
       />,
       <FlatButton
         label="Submit"
-        primary={true}
+        secondary={true}
         onTouchTap={this.handleSubmit}
       />,
     ];
     return (
         <Dialog
           title="Add a record!"
+          titleStyle={{color: deepPurple400}}
           actions={actions}
           modal={false}
           open={this.props.isOpen}

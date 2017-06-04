@@ -4,6 +4,7 @@ import SearchBar from './SearchBar.js'
 import Login from './Login.js'
 import Logout from './Logout.js'
 import { loginUser, logoutUser } from '../actions'
+import {deepPurple400} from 'material-ui/styles/colors'
 
 class NavBar extends Component {
 
@@ -37,7 +38,7 @@ class NavBar extends Component {
     return (
       <AppBar
         title='VinylCache'
-        titleStyle={{fontSize: 24}}
+        titleStyle={{fontSize: 24, color: deepPurple400}}
         style={{position: 'fixed'}}
         showMenuIconButton={false}
         iconElementRight={<SearchBar onUserInput={this.handleUserInput.bind(this)} />}

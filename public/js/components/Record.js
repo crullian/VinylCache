@@ -73,9 +73,7 @@ export default class Record extends Component {
             { year }
           </h5>
           <div className="btn btn-default edit" onClick={this.showEdit.bind(this)}>{buttonText}</div>
-          <div className="editFormWrapper">
-            { editForm }
-          </div>
+          { editForm }
         </div>
       </div>
     )

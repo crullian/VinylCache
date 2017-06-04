@@ -22,7 +22,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: deepPurple400
+    primary1Color: '#fff',
+    accent1Color: deepPurple400
+  },
+  textField: {
+    focusColor: deepPurple400,
+    borderColor: '#fff',
   }
 });
 

@@ -8,10 +8,6 @@ body {
   margin: 0;
 }
 
-// .navbar-default {
-//   background-color: rgba(248, 248, 248, 0.96);
-// }
-
 h3, h4 {
   margin-top: 0;
   margin-bottom: 0;
@@ -30,14 +26,10 @@ h5 {
   padding-top: 64px;
 }
 
-.list {
-  padding-top: 50px;
-}
-
 .record {
   padding-bottom: 5px;
-  height: 350px;
-  margin-bottom: 25px;
+  min-height: 350px;
+  margin: 30px 8%;
 }
 
 .info {
@@ -49,15 +41,12 @@ h5 {
 
 .album {
   padding: 0;
+  margin: 0 0 20px 0;
   box-shadow: 6px 7px 20px #adadad;
   width: 300px;
+  height: auto;
   float: left;
 }
-
-// input {
-//   padding: 5px;
-//   width: 80%;
-// }
 
 .addForm {
   position: fixed;
@@ -69,11 +58,6 @@ h5 {
   padding: 5px;
   width: 155px;
   margin: 2px 0px;
-}
-
-.editFormWrapper {
-  margin-left: 60px;
-  margin-top: -44px;
 }
 
 #editForm {
@@ -90,26 +74,9 @@ h5 {
 }
 
 @media screen and (max-width: 992px) {
-  
-//   .navbar-default {
-//     background-color: rgba(68, 66, 66, 0.98);
-//   }
-
-//   .navbar-default .navbar-brand {
-//     color: #cacaca;
-//   }
-
-//   .navbar-form {
-//     border: none;
-//     box-shadow: none;
-//   }
 
   h1 {
     font-size: 25px;
-  }
-
-  h3 {
-    font-size: 16px;
   }
 
   .info {
@@ -121,19 +88,6 @@ h5 {
     margin-bottom: 0;
     width: 90%;
     position: relative;
-  }
-
-  .list {
-    padding-top: 0;
-  }
-
-  .record {
-    margin: 30px 25px;
-  }
-
-  .album {
-    width: 250px;
-    height: 250px;
   }
 }
 

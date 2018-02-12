@@ -12,7 +12,7 @@ export default class SearchBar extends Component {
           type="text"
           hintText="Search..."
           hintStyle={{color: deepPurple400}}
-          style={{width: 200}}
+          style={{width: 160}}
           underlineStyle={{borderColor: '#fff'}}
           underlineFocusStyle={{borderColor: deepPurple400}}
           onChange={this.handleChange}

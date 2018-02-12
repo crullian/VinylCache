@@ -72,7 +72,6 @@ class RecordApp extends Component {
   }
 
   render() {
-    console.log('dialog is open?', this.state.addRecordDialogIsOpen)
     const { dispatch, records, isAuthenticated, errorMessage, isFetchingRecords } = this.props
     return (
       <div>

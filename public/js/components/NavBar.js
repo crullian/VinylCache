@@ -1,12 +1,18 @@
 import React, { Component, PropTypes } from 'react'
-import AppBar from 'material-ui/AppBar'
 import SearchBar from './SearchBar.js'
 import Login from './Login.js'
 import Logout from './Logout.js'
 import { loginUser, logoutUser } from '../actions'
+import AppBar from 'material-ui/AppBar'
+import Drawer from 'material-ui/Drawer'
+import Menu from 'material-ui/svg-icons/navigation/menu'
+import IconButton from 'material-ui/IconButton'
 import {deepPurple400} from 'material-ui/styles/colors'
 
 class NavBar extends Component {
+  state = {
+    isDrawerOpen: false
+  }
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -14,7 +20,20 @@ class NavBar extends Component {
     errorMessage: PropTypes.string
   }
 
-  handleUserInput(filterText) {
+  handleDrawerOpen = () => {
+    this.setState({isDrawerOpen: true});
+  }
+
+  handleDrawerClose = () => {
+    this.setState({isDrawerOpen: false})
+  }
+
+  handleMenuTap = () => {
+    console.log('CLICKED MENU')
+    this.handleDrawerOpen();
+  }
+
+  handleUserInput = (filterText) => {
     return this.props.setSearchInput(filterText);
   }
 
@@ -40,10 +59,20 @@ class NavBar extends Component {
         title='VinylCache'
         titleStyle={{fontSize: 24, color: deepPurple400}}
         style={{position: 'fixed'}}
-        showMenuIconButton={false}
-        iconElementRight={<SearchBar onUserInput={this.handleUserInput.bind(this)} />}
+        iconElementLeft={
+          <IconButton onTouchTap={this.handleMenuTap}>
+            <Menu color={deepPurple400} />
+          </IconButton>
+        }
+        iconElementRight={<SearchBar onUserInput={this.handleUserInput} />}
       >
-        { loginButton }
+        <Drawer
+          docked={false}
+          open={this.state.isDrawerOpen}
+          onRequestChange={this.handleDrawerClose}
+        >
+          { loginButton }
+        </Drawer>
       </AppBar>
     );
   }
